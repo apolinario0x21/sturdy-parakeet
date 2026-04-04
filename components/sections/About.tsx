@@ -3,7 +3,7 @@ import { TerminalWindow } from '@/components/TerminalWindow';
 
 export function About() {
   return (
-    <TerminalWindow title="marcelo@apolinario:~ -- about">
+    <TerminalWindow title="~/about">
       <Prompt command="whoami --verbose" />
       <div className="terminal-output border-l-2 border-l-term-cyan">
         <p>

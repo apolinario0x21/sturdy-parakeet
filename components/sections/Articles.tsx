@@ -3,7 +3,7 @@ import { TerminalWindow } from '@/components/TerminalWindow';
 
 export function Articles() {
   return (
-    <TerminalWindow title="marcelo@apolinario:~/artigos -- ls">
+    <TerminalWindow title="~/artigos">
       <Prompt path="~/artigos" command="ls -lh --sort=time --color=always" />
       <div className="terminal-output text-sm">
         <p className="text-term-mute">total 1</p>

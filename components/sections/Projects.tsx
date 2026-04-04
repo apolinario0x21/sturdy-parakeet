@@ -3,7 +3,7 @@ import { TerminalWindow } from '@/components/TerminalWindow';
 
 export function Projects() {
   return (
-    <TerminalWindow title="marcelo@apolinario:~/projetos -- ls -la">
+    <TerminalWindow title="~/projetos">
       <Prompt path="~/projetos" command="ls -la --group-directories-first" />
       <article className="terminal-output space-y-3">
         <h3 className="font-semibold text-term-green">academic-records</h3>

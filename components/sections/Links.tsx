@@ -10,7 +10,7 @@ const links = [
 
 export function Links() {
   return (
-    <TerminalWindow title="marcelo@apolinario:~ -- links & contato">
+    <TerminalWindow title="~/links">
       <Prompt command="cat links.conf" />
       <div className="grid gap-3 sm:grid-cols-2">
         {links.map(([label, value]) => (
