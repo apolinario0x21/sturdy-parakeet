@@ -3,7 +3,7 @@ import { TerminalWindow } from '@/components/TerminalWindow';
 
 export function About() {
   return (
-    <TerminalWindow title="~/about">
+    <TerminalWindow title="~/about" className="h-full">
       <Prompt command="whoami --verbose" />
       <div className="terminal-output border-l-2 border-l-term-cyan">
         <p>
@@ -12,16 +12,20 @@ export function About() {
           pipelines cloud-native e automação.
         </p>
         <p className="mt-4">
-          Bacharel em Sistemas de Informação e pós-graduando em Desenvolvimento Web. Entusiasta de Linux,
-          segurança da informação e plataformas escaláveis.
+          Pós-graduando em Desenvolvimento Web e bacharel em Sistemas de Informação. Entusiasta do ecossistema Linux,
+          Segurança da Informação e plataformas escaláveis.
         </p>
         <dl className="mt-5 grid gap-2 text-sm sm:grid-cols-[160px_1fr]">
           <dt className="text-term-mute">Localização:</dt>
           <dd>Brasil 🇧🇷</dd>
+          <dt className="text-term-mute">Graduação:</dt>
+          <dd>Sistemas de Informação</dd>
+          <dt className="text-term-mute">Pós-graduação:</dt>
+          <dd>Desenvolvimento Web</dd>
           <dt className="text-term-mute">Especialidades:</dt>
-          <dd>DevOps · Cloud · Networking · IaC · Security</dd>
-          <dt className="text-term-mute">OS favorito:</dt>
-          <dd>Linux (Wolfi, Debian)</dd>
+          <dd>DevOps · Cloud · Networking · IaC</dd>
+          <dt className="text-term-mute">OS:</dt>
+          <dd>Kali, Fedora, Ubuntu, Zorin OS, Parrot OS e Windows</dd>
         </dl>
       </div>
     </TerminalWindow>
