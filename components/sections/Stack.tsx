@@ -11,7 +11,7 @@ const groups = [
 
 export function Stack() {
   return (
-    <TerminalWindow title="marcelo@apolinario:~ -- stack">
+    <TerminalWindow title="~/stack">
       <Prompt command="cat stack.json | jq '.skills[]'" />
       <div className="space-y-4">
         {groups.map((group) => (
