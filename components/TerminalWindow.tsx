@@ -14,8 +14,7 @@ export function TerminalWindow({ title, children }: TerminalWindowProps) {
           <span className="h-3 w-3 rounded-full bg-yellow-400" />
           <span className="h-3 w-3 rounded-full bg-green-500" />
         </div>
-        <p className="tracking-widest">{title}</p>
-        <span className="opacity-0">dots</span>
+        <p className="font-mono tracking-wide text-term-mute">{title}</p>
       </header>
       <div className="space-y-5 p-5">{children}</div>
     </section>
