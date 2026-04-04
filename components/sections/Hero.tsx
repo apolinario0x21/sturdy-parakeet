@@ -1,10 +1,9 @@
-import { Prompt } from '@/components/Prompt';
 import { TerminalWindow } from '@/components/TerminalWindow';
 
 export function Hero() {
   return (
     <TerminalWindow title="marcelo@apolinario:~ -- bash -- 120x38">
-      <pre className="overflow-x-auto text-2xl font-bold leading-tight text-term-green sm:text-4xl">{`███╗   ███╗ █████╗ ██████╗  ██████╗███████╗██╗      ██████╗
+      <pre className="overflow-x-auto text-xl font-bold leading-tight text-emerald-300 sm:text-3xl">{`███╗   ███╗ █████╗ ██████╗  ██████╗███████╗██╗      ██████╗
 ████╗ ████║██╔══██╗██╔══██╗██╔════╝██╔════╝██║     ██╔═══██╗
 ██╔████╔██║███████║██████╔╝██║     █████╗  ██║     ██║   ██║
 ██║╚██╔╝██║██╔══██║██╔══██╗██║     ██╔══╝  ██║     ██║   ██║
@@ -18,7 +17,6 @@ export function Hero() {
           status: <span className="text-term-green">● disponível</span>
         </p>
       </div>
-      <Prompt command="whoami --verbose" />
     </TerminalWindow>
   );
 }
