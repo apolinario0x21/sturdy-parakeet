@@ -3,11 +3,12 @@ import type { ReactNode } from 'react';
 type TerminalWindowProps = {
   title: string;
   children: ReactNode;
+  className?: string;
 };
 
-export function TerminalWindow({ title, children }: TerminalWindowProps) {
+export function TerminalWindow({ title, children, className }: TerminalWindowProps) {
   return (
-    <section className="terminal-card overflow-hidden">
+    <section className={`terminal-card overflow-hidden ${className ?? ''}`}>
       <header className="flex items-center justify-between border-b border-term-border/80 bg-slate-900/50 px-4 py-3 text-xs text-term-mute">
         <div className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full bg-red-500" />

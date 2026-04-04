@@ -3,7 +3,7 @@ import { Prompt } from '@/components/Prompt';
 
 export function Hero() {
   return (
-    <TerminalWindow title="~/hero">
+    <TerminalWindow title="~/hero" className="h-full">
       <Prompt command="cat profile.txt" />
       <h1 className="text-[36px] font-bold leading-tight text-term-green">Marcelo</h1>
       <div className="grid gap-4 text-sm sm:grid-cols-2">
