@@ -4,9 +4,8 @@ import { Prompt } from '@/components/Prompt';
 export function Hero() {
   return (
     <TerminalWindow title="~/home" className="min-h-[calc(100svh-4rem)]">
-      <Prompt command="cat profile.txt" />
       <h1 className="text-[36px] font-bold leading-tight text-term-green">Marcelo</h1>
-      <div className="grid gap-3 text-sm text-term-mute sm:grid-cols-[repeat(3,minmax(0,1fr))] sm:gap-x-6">
+      <div className="grid gap-3 text-sm text-term-mute sm:gap-x-6">
         <p>
           role: <span className="text-term-text">DevOps &amp; Networking Engineer</span>
         </p>
@@ -21,7 +20,7 @@ export function Hero() {
         </p>
       </div>
       <div className="h-px w-full bg-term-border/70" />
-      <Prompt command="whoami --verbose" />
+      <Prompt command="whoami" />
       <div className="terminal-output border-l-2 border-l-term-cyan">
         <p>
           <span className="font-semibold text-term-green">Marcelo Apolinário</span> — profissional com{' '}
