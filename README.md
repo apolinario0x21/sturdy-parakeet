@@ -1,7 +1,3 @@
-# Marcelo Apolinário — Terminal Portfolio
-
-Página pessoal profissional em Next.js 14 + Tailwind CSS com estética de terminal Linux.
-
 ## Scripts
 
 - `npm run dev`
