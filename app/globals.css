@@ -6,6 +6,10 @@
   color-scheme: dark;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   @apply bg-term-bg text-term-text font-mono;
   background-image: radial-gradient(circle at 20% 0%, rgba(87, 216, 255, 0.12), transparent 24%),
@@ -35,5 +39,10 @@ body::after {
 
   .terminal-output {
     @apply rounded-xl border border-term-border/70 bg-slate-950/60 p-4 leading-relaxed;
+  }
+
+  .hero-panel {
+    background: linear-gradient(180deg, rgba(4, 21, 50, 0.88) 0%, rgba(3, 13, 33, 0.9) 100%);
+    box-shadow: 0 10px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.03);
   }
 }
