@@ -7,7 +7,7 @@ import { Stack } from '@/components/sections/Stack';
 
 export default function HomePage() {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-4 px-4 py-6">
+    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-4 px-4 pb-6 pt-4">
       <Hero />
       <section id="about" className="scroll-mt-8">
         <About />
