@@ -17,9 +17,9 @@ const highlights = [
 
 export function Hero() {
   return (
-    <header>
-      <TerminalWindow title="~/home" className="hero-panel border-term-border">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 p-2 sm:p-4">
+    <header className="min-h-[calc(100svh-1.5rem)]">
+      <TerminalWindow title="~/home" className="hero-panel h-full border-term-border">
+        <div className="mx-auto flex h-full w-full max-w-5xl flex-col justify-between gap-8 p-2 sm:p-4">
           <Prompt command="./start-portfolio.sh" />
 
           <div className="space-y-4 text-center sm:text-left">
