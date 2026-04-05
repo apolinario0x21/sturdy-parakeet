@@ -4,7 +4,7 @@ import { TerminalWindow } from '@/components/TerminalWindow';
 export function About() {
   return (
     <TerminalWindow title="~/about" className="h-full">
-      <Prompt command="whoami --verbose" />
+      <Prompt command="whoami" />
       <div className="terminal-output border-l-2 border-l-term-cyan">
         <p>
           <span className="font-semibold text-term-green">Marcelo Apolinário</span> — profissional com{' '}

@@ -2,10 +2,10 @@ import { Prompt } from '@/components/Prompt';
 import { TerminalWindow } from '@/components/TerminalWindow';
 
 const links = [
-  ['GitHub', 'github.com/test-example'],
-  ['LinkedIn', 'linkedin.com/in/marcelo-apolinario'],
+  ['GitHub', 'github.com/example'],
+  ['LinkedIn', 'linkedin.com/in/example'],
   ['Blog / Artigos', 'example.com/artigos'],
-  ['Email', 'marcelo@example.com']
+  ['Email', 'marcelo@example.dev']
 ];
 
 export function Links() {
@@ -21,7 +21,7 @@ export function Links() {
         ))}
       </div>
       <p className="rounded-md bg-term-green px-3 py-2 font-semibold text-slate-900">
-        NORMAL · marcelo@apolinario · DevOps & Networking · Linux Enthusiast · 2025
+        marcelo@apolinario · DevOps & Networking · Linux Enthusiast · 2026
       </p>
     </TerminalWindow>
   );

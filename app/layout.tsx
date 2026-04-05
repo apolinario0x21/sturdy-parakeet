@@ -5,7 +5,7 @@ import './globals.css';
 const jetBrains = JetBrains_Mono({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Marcelo Apolinário | DevOps & Networking',
+  title: 'Apolinário | DevOps & Networking Engineer',
   description: 'Página profissional em estilo terminal Linux para DevOps & Networking Engineer.'
 };
 
