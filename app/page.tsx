@@ -5,25 +5,48 @@ import { Links } from '@/components/sections/Links';
 import { Projects } from '@/components/sections/Projects';
 import { Stack } from '@/components/sections/Stack';
 
+const sectionItems = [
+  { id: 'about', label: 'About', subtitle: 'Quem sou e foco atual', component: <About /> },
+  { id: 'stack', label: 'Stack', subtitle: 'Tecnologias e ferramentas', component: <Stack /> },
+  { id: 'artigos', label: 'Artigos', subtitle: 'Notas e conteúdos técnicos', component: <Articles /> },
+  { id: 'projetos', label: 'Projetos', subtitle: 'Experiências práticas', component: <Projects /> },
+  { id: 'links', label: 'Links', subtitle: 'Contato e redes', component: <Links /> }
+] as const;
+
 export default function HomePage() {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-4 px-4 pb-6 pt-4">
+    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-4 pb-10 pt-4 sm:gap-8">
       <Hero />
-      <section id="about" className="scroll-mt-8">
-        <About />
+
+      <section className="grid gap-4 rounded-2xl border border-term-border/70 bg-slate-950/35 p-4 sm:grid-cols-3 sm:items-center sm:gap-6 sm:p-6">
+        <p className="sm:col-span-2 text-sm leading-relaxed text-slate-300 sm:text-base">
+          Portfólio com abordagem terminal-first, combinando desenvolvimento back-end, cloud-native e segurança da
+          informação em uma navegação objetiva.
+        </p>
+        <nav aria-label="Navegação rápida" className="flex flex-wrap gap-2 sm:justify-end">
+          {sectionItems.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className="rounded-lg border border-term-border/70 bg-slate-900/70 px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-200 transition hover:border-term-cyan hover:text-term-cyan"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
       </section>
-      <section id="stack" className="scroll-mt-8">
-        <Stack />
-      </section>
-      <section id="artigos" className="scroll-mt-8">
-        <Articles />
-      </section>
-      <section id="projetos" className="scroll-mt-8">
-        <Projects />
-      </section>
-      <section id="links" className="scroll-mt-8">
-        <Links />
-      </section>
+
+      <div className="grid gap-6">
+        {sectionItems.map((item) => (
+          <section key={item.id} id={item.id} className="scroll-mt-8 space-y-2">
+            <header className="section-header">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-term-cyan">{item.label}</h2>
+              <p className="text-xs text-term-mute">{item.subtitle}</p>
+            </header>
+            {item.component}
+          </section>
+        ))}
+      </div>
     </main>
   );
 }
