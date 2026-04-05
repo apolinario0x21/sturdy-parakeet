@@ -3,9 +3,9 @@ import { Prompt } from '@/components/Prompt';
 
 export function Hero() {
   return (
-    <TerminalWindow title="~/home" className="min-h-[calc(100svh-4rem)]">
+    <TerminalWindow title="~/home">
       <h1 className="text-[36px] font-bold leading-tight text-term-green">Marcelo</h1>
-      <div className="grid gap-3 text-sm text-term-mute sm:gap-x-6">
+      <div className="grid gap-2 text-sm text-term-mute sm:gap-x-6">
         <p>
           role: <span className="text-term-text">DevOps &amp; Networking Engineer</span>
         </p>
@@ -27,11 +27,11 @@ export function Hero() {
           <span className="font-semibold text-term-cyan">fortes raízes em Infraestrutura de TI e Redes</span>, com foco em
           pipelines cloud-native e automação.
         </p>
-        <p className="mt-4">
+        <p className="mt-3">
           Pós-graduando em Desenvolvimento Web e bacharel em Sistemas de Informação. Entusiasta do ecossistema Linux,
           Segurança da Informação e plataformas escaláveis.
         </p>
-        <dl className="mt-5 grid gap-2 text-sm sm:grid-cols-[160px_1fr]">
+        <dl className="mt-4 grid gap-1.5 text-sm sm:grid-cols-[160px_1fr]">
           <dt className="text-term-mute">Localização:</dt>
           <dd>Brasil 🇧🇷</dd>
           <dt className="text-term-mute">Graduação:</dt>
