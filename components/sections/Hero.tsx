@@ -17,9 +17,9 @@ const highlights = [
 
 export function Hero() {
   return (
-    <header className="min-h-[100svh] w-full">
-      <TerminalWindow title="~/home" className="hero-panel flex min-h-[100svh] w-full flex-col border-term-border">
-        <div className="flex h-full w-full flex-1 flex-col justify-start gap-6 sm:gap-8 md:justify-between">
+    <header className="w-full">
+      <TerminalWindow title="~/home" className="hero-panel flex min-h-[88svh] w-full flex-col border-term-border sm:min-h-[100svh]">
+        <div className="grid h-full w-full flex-1 grid-rows-[auto_auto_1fr_auto] gap-6 sm:gap-8">
           <Prompt command="./start-portfolio.sh" />
 
           <div className="space-y-4 text-center sm:text-left">
@@ -32,7 +32,7 @@ export function Hero() {
             </p>
           </div>
 
-          <div className="grid items-stretch gap-4 lg:grid-cols-[1.4fr_1fr]">
+          <div className="grid items-stretch gap-4 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
             <p className="terminal-output flex h-full items-start text-base text-slate-200 sm:text-lg md:text-xl">
               Desenvolvo soluções escaláveis com foco em performance, automação e práticas de segurança para ambientes
               modernos.

@@ -15,7 +15,7 @@ const sectionItems = [
 
 export default function HomePage() {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-4 pb-10 pt-4 sm:gap-8">
+    <main className="mx-auto grid min-h-screen w-full max-w-6xl grid-cols-1 gap-6 px-4 pb-10 pt-4 sm:gap-8">
       <Hero />
 
       <section className="rounded-2xl border border-term-border/70 bg-slate-950/35 p-4 sm:p-6">
