@@ -19,21 +19,21 @@ export function Hero() {
   return (
     <header className="min-h-[100svh] w-full">
       <TerminalWindow title="~/home" className="hero-panel flex min-h-[100svh] w-full flex-col border-term-border">
-        <div className="flex h-full w-full flex-1 flex-col justify-start gap-6 p-2 sm:gap-8 sm:p-4 md:justify-between">
+        <div className="flex h-full w-full flex-1 flex-col justify-start gap-6 sm:gap-8 md:justify-between">
           <Prompt command="./start-portfolio.sh" />
 
           <div className="space-y-4 text-center sm:text-left">
             <p className="inline-flex rounded-full border border-term-border/70 bg-slate-900/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-term-cyan">
               Portfolio 2026
             </p>
-            <h1 className="text-3xl font-bold leading-tight text-slate-100 sm:text-5xl md:text-6xl">Marcelo Apolinário</h1>
-            <p className="text-base text-slate-300 sm:text-2xl md:text-3xl">
+            <h1 className="text-4xl font-bold leading-tight text-slate-100 sm:text-5xl md:text-6xl">Marcelo Apolinário</h1>
+            <p className="text-lg text-slate-300 sm:text-2xl md:text-3xl">
               Back-End Developer, CTF Player & Linux Enthusiast
             </p>
           </div>
 
-          <div className="grid items-stretch gap-4 md:grid-cols-[1.4fr_1fr]">
-            <p className="terminal-output flex h-full items-start text-sm text-slate-200 sm:text-lg md:text-xl">
+          <div className="grid items-stretch gap-4 lg:grid-cols-[1.4fr_1fr]">
+            <p className="terminal-output flex h-full items-start text-base text-slate-200 sm:text-lg md:text-xl">
               Desenvolvo soluções escaláveis com foco em performance, automação e práticas de segurança para ambientes
               modernos.
             </p>
