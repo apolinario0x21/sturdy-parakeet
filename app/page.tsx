@@ -15,7 +15,7 @@ const sectionItems = [
 
 export default function HomePage() {
   return (
-    <main className="mx-auto grid min-h-screen w-full max-w-6xl grid-cols-1 gap-6 px-4 pb-10 pt-4 sm:gap-8">
+    <main className="mx-auto grid min-h-screen w-full max-w-6xl gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-8">
       <Hero />
 
       <section className="rounded-2xl border border-term-border/70 bg-slate-950/35 p-4 sm:p-6">
@@ -32,9 +32,9 @@ export default function HomePage() {
         </nav>
       </section>
 
-      <div className="grid gap-6">
+      <div className="grid gap-6 sm:gap-7">
         {sectionItems.map((item) => (
-          <section key={item.id} id={item.id} className="scroll-mt-8 space-y-2">
+          <section key={item.id} id={item.id} className="scroll-mt-8 space-y-3">
             <header className="section-header">
               <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-term-cyan">{item.label}</h2>
               <p className="text-xs text-term-mute">{item.subtitle}</p>
