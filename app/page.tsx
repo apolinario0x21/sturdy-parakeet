@@ -18,11 +18,7 @@ export default function HomePage() {
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col gap-6 px-4 pb-10 pt-4 sm:gap-8">
       <Hero />
 
-      <section className="grid gap-4 rounded-2xl border border-term-border/70 bg-slate-950/35 p-4 sm:grid-cols-3 sm:items-center sm:gap-6 sm:p-6">
-        <p className="sm:col-span-2 text-sm leading-relaxed text-slate-300 sm:text-base">
-          Portfólio com abordagem terminal-first, combinando desenvolvimento back-end, cloud-native e segurança da
-          informação em uma navegação objetiva.
-        </p>
+      <section className="rounded-2xl border border-term-border/70 bg-slate-950/35 p-4 sm:p-6">
         <nav aria-label="Navegação rápida" className="flex flex-wrap gap-2 sm:justify-end">
           {sectionItems.map((item) => (
             <a
