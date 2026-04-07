@@ -5,7 +5,7 @@ type PromptProps = {
 
 export function Prompt({ path = '~', command }: PromptProps) {
   return (
-    <p className="text-lg">
+    <p className="break-words text-sm sm:text-lg">
       <span className="font-semibold text-term-green">marcelo</span>
       <span className="font-semibold text-term-cyan">@apolinario</span>
       <span>:</span>
