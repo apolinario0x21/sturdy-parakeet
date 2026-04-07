@@ -16,11 +16,11 @@ export function Links() {
         {links.map(([label, value]) => (
           <div key={label} className="terminal-output">
             <p className="text-sm text-term-mute">{label}</p>
-            <p className="font-semibold text-term-cyan">{value}</p>
+            <p className="break-all font-semibold text-term-cyan">{value}</p>
           </div>
         ))}
       </div>
-      <p className="rounded-md bg-term-green px-3 py-2 font-semibold text-slate-900">
+      <p className="break-words rounded-md bg-term-green px-3 py-2 text-sm font-semibold text-slate-900 sm:text-base">
         marcelo@apolinario · DevOps & Networking · Linux Enthusiast · 2026
       </p>
     </TerminalWindow>

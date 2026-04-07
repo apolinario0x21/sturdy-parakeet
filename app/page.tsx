@@ -15,16 +15,19 @@ const sectionItems = [
 
 export default function HomePage() {
   return (
-    <main className="mx-auto grid min-h-screen w-full max-w-6xl gap-5 overflow-x-hidden px-3 py-4 sm:gap-7 sm:px-5 sm:py-7 lg:px-8">
+    <main className="mx-auto grid min-h-screen w-full max-w-6xl gap-4 overflow-x-hidden px-2.5 py-3 sm:gap-6 sm:px-4 sm:py-6 lg:px-8">
       <Hero />
 
-      <section className="rounded-2xl border border-term-border/70 bg-slate-950/35 p-3 sm:p-6">
-        <nav aria-label="Navegação rápida" className="flex flex-wrap justify-center gap-2 sm:justify-end">
+      <section className="rounded-2xl border border-term-border/70 bg-slate-950/35 p-2.5 sm:p-5">
+        <nav
+          aria-label="Navegação rápida"
+          className="flex w-full gap-2 overflow-x-auto pb-1 sm:flex-wrap sm:justify-end sm:overflow-visible sm:pb-0"
+        >
           {sectionItems.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="rounded-lg border border-term-border/70 bg-slate-900/70 px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-200 transition hover:border-term-cyan hover:text-term-cyan"
+              className="shrink-0 rounded-lg border border-term-border/70 bg-slate-900/70 px-3 py-1.5 text-xs font-semibold tracking-wide text-slate-200 transition hover:border-term-cyan hover:text-term-cyan"
             >
               {item.label}
             </a>
