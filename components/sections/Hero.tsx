@@ -18,42 +18,50 @@ const highlights = [
 export function Hero() {
   return (
     <header className="w-full">
-      <TerminalWindow title="~/home" className="hero-panel flex min-h-[88svh] w-full flex-col border-term-border sm:min-h-[100svh]">
-        <div className="grid h-full w-full flex-1 grid-rows-[auto_auto_1fr_auto] gap-6 sm:gap-8">
+      <TerminalWindow
+        title="~/home"
+        className="hero-panel flex min-h-[76svh] w-full flex-col border-term-border sm:min-h-[88svh] lg:min-h-[100svh]"
+      >
+        <div className="grid h-full w-full flex-1 grid-rows-[auto_auto_1fr_auto] gap-4 sm:gap-6 lg:gap-8">
           <Prompt command="./start-portfolio.sh" />
 
-          <div className="space-y-4 text-center sm:text-left">
-            <p className="inline-flex rounded-full border border-term-border/70 bg-slate-900/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-term-cyan">
+          <div className="space-y-3 text-center sm:space-y-4 sm:text-left">
+            <p className="inline-flex rounded-full border border-term-border/70 bg-slate-900/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-term-cyan sm:px-3 sm:text-xs sm:tracking-[0.24em]">
               Portfolio 2026
             </p>
-            <h1 className="text-4xl font-bold leading-tight text-slate-100 sm:text-5xl md:text-6xl">Marcelo Apolinário</h1>
-            <p className="text-lg text-slate-300 sm:text-2xl md:text-3xl">
+            <h1 className="text-3xl font-bold leading-tight text-slate-100 sm:text-5xl md:text-6xl">Marcelo Apolinário</h1>
+            <p className="text-base text-slate-300 sm:text-2xl md:text-3xl">
               Back-End Developer, CTF Player & Linux Enthusiast
             </p>
           </div>
 
-          <div className="grid items-stretch gap-4 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-            <p className="terminal-output flex h-full items-start text-base text-slate-200 sm:text-lg md:text-xl">
+          <div className="grid items-stretch gap-3 sm:gap-4 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+            <p className="terminal-output flex h-full items-start text-sm text-slate-200 sm:text-lg md:text-xl">
               Desenvolvo soluções escaláveis com foco em performance, automação e práticas de segurança para ambientes
               modernos.
             </p>
 
-            <ul className="grid h-full gap-2">
+            <ul className="grid h-full gap-2 sm:gap-3">
               {highlights.map((highlight) => (
-                <li key={highlight.label} className="flex flex-col justify-center rounded-xl border border-term-border/70 bg-slate-950/45 p-3">
-                  <p className="text-xs uppercase tracking-[0.2em] text-term-mute">{highlight.label}</p>
-                  <p className="mt-1 font-semibold text-term-cyan">{highlight.value}</p>
+                <li
+                  key={highlight.label}
+                  className="flex min-h-20 flex-col justify-center rounded-xl border border-term-border/70 bg-slate-950/45 p-3"
+                >
+                  <p className="text-[10px] uppercase tracking-[0.18em] text-term-mute sm:text-xs sm:tracking-[0.2em]">
+                    {highlight.label}
+                  </p>
+                  <p className="mt-1 text-sm font-semibold text-term-cyan sm:text-base">{highlight.value}</p>
                 </li>
               ))}
             </ul>
           </div>
 
-          <nav className="flex flex-wrap items-center gap-2 sm:gap-3" aria-label="Seções da página">
+          <nav className="flex flex-wrap items-center justify-center gap-2 sm:justify-start sm:gap-3" aria-label="Seções da página">
             {sectionLinks.map((section) => (
               <a
                 key={section.href}
                 href={section.href}
-                className="group inline-flex items-center gap-2 rounded-full border border-term-border/70 bg-slate-950/50 px-3 py-1.5 text-xs text-slate-300 transition hover:-translate-y-0.5 hover:border-term-cyan hover:text-term-cyan sm:px-4 sm:py-2 sm:text-sm"
+                className="group inline-flex items-center gap-1.5 rounded-full border border-term-border/70 bg-slate-950/50 px-2.5 py-1.5 text-[11px] text-slate-300 transition hover:-translate-y-0.5 hover:border-term-cyan hover:text-term-cyan sm:gap-2 sm:px-4 sm:py-2 sm:text-sm"
               >
                 <span aria-hidden>{section.icon}</span>
                 <span className="font-semibold tracking-wide">{section.label}</span>
