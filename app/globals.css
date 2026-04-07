@@ -8,9 +8,11 @@
 
 html {
   scroll-behavior: smooth;
+  min-height: 100%;
 }
 
 body {
+  min-height: 100svh;
   @apply bg-term-bg text-term-text font-mono;
   background-image: radial-gradient(circle at 15% 0%, rgba(87, 216, 255, 0.12), transparent 28%),
     radial-gradient(circle at 85% 100%, rgba(66, 255, 159, 0.12), transparent 30%);

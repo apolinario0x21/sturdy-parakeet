@@ -17,7 +17,7 @@ export function TerminalWindow({ title, children, className }: TerminalWindowPro
         </div>
         <p className="font-mono tracking-wide text-term-mute">{title}</p>
       </header>
-      <div className="space-y-4 p-4">{children}</div>
+      <div className="flex flex-1 flex-col space-y-4 p-4">{children}</div>
     </section>
   );
 }
