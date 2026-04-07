@@ -20,23 +20,23 @@ export function Hero() {
     <header className="w-full">
       <TerminalWindow
         title="~/home"
-        className="hero-panel flex min-h-[76svh] w-full flex-col border-term-border sm:min-h-[88svh] lg:min-h-[100svh]"
+        className="hero-panel flex w-full flex-col border-term-border"
       >
-        <div className="grid h-full w-full flex-1 grid-rows-[auto_auto_1fr_auto] gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid h-full w-full flex-1 grid-rows-[auto_auto_1fr_auto] gap-4 sm:gap-6">
           <Prompt command="./start-portfolio.sh" />
 
           <div className="space-y-3 text-center sm:space-y-4 sm:text-left">
             <p className="inline-flex rounded-full border border-term-border/70 bg-slate-900/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-term-cyan sm:px-3 sm:text-xs sm:tracking-[0.24em]">
               Portfolio 2026
             </p>
-            <h1 className="text-3xl font-bold leading-tight text-slate-100 sm:text-5xl md:text-6xl">Marcelo Apolinário</h1>
-            <p className="text-base text-slate-300 sm:text-2xl md:text-3xl">
+            <h1 className="text-2xl font-bold leading-tight text-slate-100 sm:text-4xl md:text-5xl">Marcelo Apolinário</h1>
+            <p className="text-sm text-slate-300 sm:text-xl md:text-2xl">
               Back-End Developer, CTF Player & Linux Enthusiast
             </p>
           </div>
 
-          <div className="grid items-stretch gap-3 sm:gap-4 md:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-            <p className="terminal-output flex h-full items-start text-sm text-slate-200 sm:text-lg md:text-xl">
+          <div className="grid items-stretch gap-3 sm:gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+            <p className="terminal-output flex h-full items-start text-sm text-slate-200 sm:text-base md:text-lg">
               Desenvolvo soluções escaláveis com foco em performance, automação e práticas de segurança para ambientes
               modernos.
             </p>
@@ -50,7 +50,7 @@ export function Hero() {
                   <p className="text-[10px] uppercase tracking-[0.18em] text-term-mute sm:text-xs sm:tracking-[0.2em]">
                     {highlight.label}
                   </p>
-                  <p className="mt-1 text-sm font-semibold text-term-cyan sm:text-base">{highlight.value}</p>
+                  <p className="mt-1 break-words text-sm font-semibold text-term-cyan sm:text-base">{highlight.value}</p>
                 </li>
               ))}
             </ul>

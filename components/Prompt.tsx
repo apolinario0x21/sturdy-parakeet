@@ -5,13 +5,13 @@ type PromptProps = {
 
 export function Prompt({ path = '~', command }: PromptProps) {
   return (
-    <p className="break-words text-xs sm:text-base lg:text-lg">
+    <p className="text-xs leading-relaxed sm:text-base lg:text-lg">
       <span className="font-semibold text-term-green">marcelo</span>
       <span className="font-semibold text-term-cyan">@apolinario</span>
       <span>:</span>
       <span className="font-semibold text-amber-300">{path}</span>
       <span>$ </span>
-      <span className="text-term-mute">{command}</span>
+      <span className="break-all text-term-mute">{command}</span>
     </p>
   );
 }

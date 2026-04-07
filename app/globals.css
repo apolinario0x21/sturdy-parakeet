@@ -42,7 +42,7 @@ body::after {
   }
 
   .terminal-output {
-    @apply rounded-xl border border-term-border/70 bg-slate-950/60 p-3 leading-relaxed sm:p-5;
+    @apply min-w-0 rounded-xl border border-term-border/70 bg-slate-950/60 p-2.5 leading-relaxed sm:p-5;
   }
 
   .hero-panel {
@@ -51,6 +51,6 @@ body::after {
   }
 
   .section-header {
-    @apply flex flex-col items-start justify-between gap-1.5 rounded-xl border border-term-border/60 bg-slate-900/40 px-3 py-3 sm:flex-row sm:items-baseline sm:gap-2 sm:px-5 sm:py-4;
+    @apply flex flex-col items-start justify-between gap-1.5 rounded-xl border border-term-border/60 bg-slate-900/40 px-2.5 py-2.5 sm:flex-row sm:items-baseline sm:gap-2 sm:px-5 sm:py-4;
   }
 }
