@@ -1,7 +1,6 @@
 import { Articles } from '@/components/sections/Articles';
 import { About } from '@/components/sections/About';
 import { Hero } from '@/components/sections/Hero';
-import { Links } from '@/components/sections/Links';
 import { Projects } from '@/components/sections/Projects';
 import { Stack } from '@/components/sections/Stack';
 
@@ -9,8 +8,7 @@ const sectionItems = [
   { id: 'about', label: 'About', subtitle: 'Quem sou e foco atual', component: <About /> },
   { id: 'stack', label: 'Stack', subtitle: 'Tecnologias e ferramentas', component: <Stack /> },
   { id: 'artigos', label: 'Artigos', subtitle: 'Notas e conteúdos técnicos', component: <Articles /> },
-  { id: 'projetos', label: 'Projetos', subtitle: 'Experiências práticas', component: <Projects /> },
-  { id: 'links', label: 'Links', subtitle: 'Contato e redes', component: <Links /> }
+  { id: 'projetos', label: 'Projetos', subtitle: 'Experiências práticas', component: <Projects /> }
 ] as const;
 
 export default function HomePage() {
