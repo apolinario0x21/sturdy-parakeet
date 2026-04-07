@@ -5,17 +5,19 @@ export function About() {
   return (
     <TerminalWindow title="~/about" className="h-full">
       <Prompt command="whoami" />
-      <div className="terminal-output border-l-2 border-l-term-cyan">
-        <p>
-          <span className="font-semibold text-term-green">Marcelo Apolinário</span> — profissional com{' '}
-          <span className="font-semibold text-term-cyan">fortes raízes em Infraestrutura de TI e Redes</span>, com foco em
-          pipelines cloud-native e automação.
-        </p>
-        <p className="mt-4">
-          Pós-graduando em Desenvolvimento Web e bacharel em Sistemas de Informação. Entusiasta do ecossistema Linux,
-          Segurança da Informação e plataformas escaláveis.
-        </p>
-        <dl className="mt-5 grid gap-2 text-sm sm:grid-cols-[160px_1fr]">
+      <div className="terminal-output grid gap-4 border-l-2 border-l-term-cyan">
+        <div className="space-y-4">
+          <p>
+            <span className="font-semibold text-term-green">Marcelo Apolinário</span> — profissional com{' '}
+            <span className="font-semibold text-term-cyan">fortes raízes em Infraestrutura de TI e Redes</span>, com foco em
+            pipelines cloud-native e automação.
+          </p>
+          <p>
+            Pós-graduando em Desenvolvimento Web e bacharel em Sistemas de Informação. Entusiasta do ecossistema Linux,
+            Segurança da Informação e plataformas escaláveis.
+          </p>
+        </div>
+        <dl className="grid gap-2 text-sm sm:grid-cols-[160px_1fr]">
           <dt className="text-term-mute">Localização:</dt>
           <dd>Brasil 🇧🇷</dd>
           <dt className="text-term-mute">Graduação:</dt>
