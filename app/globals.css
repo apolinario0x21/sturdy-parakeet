@@ -36,7 +36,22 @@ body::after {
   opacity: 0.15;
 }
 
+@keyframes cursor-blink {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 @layer components {
+  .terminal-cursor {
+    animation: cursor-blink 1s step-end infinite;
+  }
+
   .terminal-card {
     @apply rounded-2xl border border-term-border/80 bg-term-panel/80 shadow-[0_0_40px_rgba(66,255,159,0.08)] backdrop-blur;
   }

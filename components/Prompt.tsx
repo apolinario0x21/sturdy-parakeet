@@ -12,6 +12,10 @@ export function Prompt({ path = '~', command }: PromptProps) {
       <span className="font-semibold text-amber-300">{path}</span>
       <span>$ </span>
       <span className="break-all text-term-mute">{command}</span>
+      <span
+        className="terminal-cursor ml-1 inline-block h-[1em] w-2 translate-y-[0.1em] rounded-[1px] bg-term-text align-baseline"
+        aria-hidden
+      />
     </p>
   );
 }
