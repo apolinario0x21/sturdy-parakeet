@@ -2,11 +2,11 @@ import { Prompt } from '@/components/Prompt';
 import { TerminalWindow } from '@/components/TerminalWindow';
 
 const stacks: Record<string, string[]> = {
-  SO: ['Linux', 'Windows', 'etc'],
+  SO: ['Ubuntu', 'Kali Linux', 'Parrot OS', 'Zorin OS', 'Windows' ],
   Containers: ['Docker', 'Docker Compose', 'Kubernetes', 'Helm'],
   IaC: ['Terraform', 'Terraform Cloud', 'Packer', 'GitHub Actions'],
   Cloud: ['AWS', 'GCP', 'CloudFront', 'Route 53', 'Lambda'],
-  Linguagens: ['Golang', 'Java', 'TypeScript']
+  Linguagens: ['Golang', 'Java', 'TypeScript', 'JavaScript', 'Python', 'Bash'],
 };
 
 export function Stack() {

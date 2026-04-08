@@ -26,14 +26,12 @@ export function Hero() {
           <Prompt command="./start-portfolio.sh" />
 
           <div className="flex min-w-0 flex-col gap-3 text-center sm:gap-4 sm:text-left">
-            <p className="inline-flex rounded-full border border-term-border/70 bg-slate-900/70 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-term-cyan sm:px-3 sm:text-xs sm:tracking-[0.24em]">
-              Portfolio 2026
-            </p>
+            
             <h1 className="break-words text-2xl font-bold leading-tight text-slate-100 sm:text-4xl md:text-5xl">
               Marcelo Apolinário
             </h1>
             <p className="text-sm text-slate-300 sm:text-xl md:text-2xl">
-              Back-End Developer, CTF Player & Linux Enthusiast
+              DevOps, Networking Engineer & Linux Enthusiast
             </p>
           </div>
 

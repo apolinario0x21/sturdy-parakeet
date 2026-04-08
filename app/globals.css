@@ -49,7 +49,7 @@ body::after {
 
 @layer components {
   .terminal-cursor {
-    animation: cursor-blink 1s step-end infinite;
+    animation: cursor-blink 2.5s step-end infinite;
   }
 
   .terminal-card {
