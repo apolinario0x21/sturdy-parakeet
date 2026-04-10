@@ -307,7 +307,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
           </section>
 
           <footer className="rounded-xl border border-term-border/70 bg-term-panel/40 px-4 py-4 text-xs text-term-mute">
-            <p>Escrito por Apolinário · DevOps & Networking Engineer · Abril 2026</p>
+            <p>Escrito por Apolinário · DevOps & Networking Engineer · Abril 2026 · Atualizado em 10/04/2026</p>
             <p className="mt-2">
               <Link href="/#artigos" className="text-term-cyan hover:underline">
                 ← Voltar para seção de artigos
