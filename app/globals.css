@@ -65,6 +65,8 @@ body::after {
   .terminal-typing {
     @apply inline-block overflow-hidden whitespace-nowrap align-baseline;
     width: 0;
+    line-height: inherit;
+    vertical-align: baseline;
     animation: command-typing 2.6s steps(var(--typing-characters, 1), end) 300ms forwards;
   }
 
