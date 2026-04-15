@@ -16,8 +16,8 @@ export function Prompt({ path = '~', command }: PromptProps) {
       <span className="font-semibold text-term-cyan">@apolinario</span>
       <span>:</span>
       <span className="font-semibold text-amber-300">{path}</span>
-      <span>$ </span>
-      <span className="terminal-typing text-term-mute" style={typingStyle}>
+      <span>$</span>
+      <span className="terminal-typing ml-1 text-term-mute" style={typingStyle}>
         {command}
       </span>
       <span
