@@ -3,15 +3,15 @@ import { TerminalWindow } from '@/components/TerminalWindow';
 
 export function Hero() {
   return (
-    <header className="grid min-h-screen min-h-[100svh] min-h-[100dvh] w-full grid-cols-1">
+    <header className="grid min-h-[85vh] min-h-[88svh] w-full grid-cols-1">
       <TerminalWindow
         title="~/home"
-        className="hero-panel grid h-full w-full grid-cols-1 border-term-border"
+        className="hero-panel grid w-full grid-cols-1 border-term-border"
       >
-        <div className="flex h-full w-full flex-col justify-between gap-8 py-4 sm:gap-10 sm:py-6 md:gap-12 md:py-8">
+        <div className="flex h-full w-full flex-col gap-5 py-1 sm:gap-7 sm:py-2 md:gap-8">
           <Prompt command="./start-portfolio.sh" />
 
-          <div className="grid flex-1 content-center gap-6 sm:gap-7 md:gap-8">
+          <div className="grid gap-6 sm:gap-7 md:gap-8">
             <div className="flex min-w-0 flex-col gap-4 text-center sm:gap-5 sm:text-left">
               <h1 className="break-words text-2xl font-bold leading-tight text-slate-100 sm:text-4xl md:text-5xl">
                 Marcelo Apolinário
@@ -22,8 +22,8 @@ export function Hero() {
             </div>
 
             <p className="max-w-3xl text-sm leading-relaxed text-slate-200 sm:text-base md:text-lg">
-              Construo, automatizo infraestruturas e pipelines seguras com Kubernetes, Terraform, AWS/GCP e Go. Possuo base
-              sólida em Redes e Linux, com foco em IaC, automação e entrega confiável.
+              Construo e automatizo infraestruturas, provisiono pipelines seguras com Kubernetes, Terraform, AWS/GCP e Go.
+              Possuo base sólida em Redes e Linux, com foco em IaC, automação e entrega confiável.
             </p>
 
             <nav
