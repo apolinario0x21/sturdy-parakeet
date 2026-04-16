@@ -3,7 +3,7 @@ import { TerminalWindow } from '@/components/TerminalWindow';
 
 export function Hero() {
   return (
-    <header className="grid min-h-[85vh] min-h-[88svh] w-full grid-cols-1">
+    <header className="grid min-h-[85vh] min-h-[88svh] w-full grid-cols-1 items-center">
       <TerminalWindow
         title="~/home"
         className="hero-panel grid w-full grid-cols-1 border-term-border"
