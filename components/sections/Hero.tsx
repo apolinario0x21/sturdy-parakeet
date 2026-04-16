@@ -46,10 +46,8 @@ const sequence: SequenceStep[] = [
     type: 'output',
     lines: [
       'Provisiono ambientes resilientes e escaláveis.',
-      'Construo e automatizo infraestruturas e pipelines',
-      'seguras com Kubernetes, Terraform, AWS/GCP e Go.',
-      'Base sólida em Redes e Linux — foco em IaC,',
-      'automação e entrega confiável.'
+      'Construo e automatizo infraestruturas e pipelines seguras com Kubernetes, Terraform, AWS/GCP e Go.',
+      'Base sólida em Redes e Linux — foco em IaC, automação e entrega confiável.'
     ]
   },
   { type: 'prompt', text: 'ls ./actions/' },
