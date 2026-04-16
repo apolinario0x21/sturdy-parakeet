@@ -1,17 +1,20 @@
 import { Prompt } from '@/components/Prompt';
 import { TerminalWindow } from '@/components/TerminalWindow';
 
-const links = [
+const resumeLink: [string, string] | null = null;
+
+const links: [string, string][] = [
   ['GitHub', 'github.com/example'],
   ['LinkedIn', 'linkedin.com/in/example'],
+  ['Email', 'marcelo@example.dev'],
   ['Blog / Artigos', 'example.com/artigos'],
-  ['Email', 'marcelo@example.dev']
+  ...(resumeLink ? [resumeLink] : [])
 ];
 
 export function Links() {
   return (
-    <TerminalWindow title="~/links">
-      <Prompt command="cat links.conf" />
+    <TerminalWindow title="~/contato">
+      <Prompt command="cat contato.conf" />
       <div className="grid gap-3 sm:grid-cols-2">
         {links.map(([label, value]) => (
           <div key={label} className="terminal-output">
