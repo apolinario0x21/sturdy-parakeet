@@ -11,15 +11,15 @@ const metadata = [
 export function About() {
   return (
     <TerminalWindow title="~/about" className="h-full">
-      <Prompt command="whoami" />
+      <Prompt path="~/about" command="cat README.md" />
       <div className="terminal-output grid gap-4 border-l-2 border-l-term-cyan">
         <div className="space-y-4">
           <p>
-            Marcelo Apolinário atua na interseção entre infraestrutura, automação e confiabilidade, com base sólida em Redes
-            e Linux e foco em ambientes cloud-native.
+            Saída de perfil carregada via terminal Linux: Marcelo Apolinário atua na interseção entre infraestrutura,
+            automação e confiabilidade, com base sólida em Redes e Linux e foco em ambientes cloud-native.
           </p>
           <p>
-            Sua experiência combina operação de serviços críticos, infraestrutura como código e pipelines de entrega, buscando
+            No dia a dia, combina operação de serviços críticos, infraestrutura como código e pipelines de entrega para
             reduzir esforço manual, aumentar previsibilidade e sustentar plataformas escaláveis.
           </p>
         </div>

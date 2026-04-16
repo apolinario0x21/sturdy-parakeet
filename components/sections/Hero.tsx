@@ -147,37 +147,6 @@ function CtaButton({ label, href, primary }: { label: string; href: string; prim
 
 export function Hero() {
   const { rendered, currentPromptText, done } = useTerminalAnimation();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia('(max-width: 639px)');
-    const update = () => setIsMobile(media.matches);
-    update();
-    media.addEventListener('change', update);
-
-    return () => media.removeEventListener('change', update);
-  }, []);
-
-  const staticSequence: RenderedStep[] = [
-    { type: 'prompt', text: 'whoami' },
-    { type: 'output', lines: ['Marcelo Apolinário'], step: 0 },
-    { type: 'prompt', text: 'cat role.txt' },
-    { type: 'output', lines: ['DevOps, Platform & Networking Engineer'], step: 1 },
-    { type: 'prompt', text: './describe --brief' },
-    {
-      type: 'output',
-      lines: [
-        'Provisiono ambientes resilientes e escaláveis.',
-        'Automatizo infraestrutura e pipelines seguras.',
-        'Base em Redes e Linux com foco em IaC.'
-      ],
-      step: 2
-    },
-    { type: 'prompt', text: 'ls ./actions/' },
-    { type: 'cta', lines: ['Ver projetos', 'Ler artigos'], step: 3 }
-  ];
-
-  const blocks = isMobile ? staticSequence : rendered;
 
   return (
     <header className="grid w-full grid-cols-1">
@@ -193,7 +162,7 @@ export function Hero() {
         </div>
 
         <div className="min-w-0 overflow-hidden px-4 py-6 text-sm leading-7 sm:px-6 sm:text-base">
-          {blocks.map((block, index) => {
+          {rendered.map((block, index) => {
             if (block.type === 'prompt') {
               return (
                 <div key={index} className="mb-1">
@@ -226,7 +195,7 @@ export function Hero() {
             );
           })}
 
-          {!isMobile && !done && (
+          {!done && (
             <div className="mt-1">
               <PromptLine text={currentPromptText} cursor />
             </div>
