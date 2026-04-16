@@ -9,12 +9,6 @@ const sectionLinks = [
   { href: '#links', label: 'Links', icon: '🔗' }
 ];
 
-const highlights = [
-  { label: 'Especialidade', value: 'Back-End & Cloud' },
-  { label: 'Foco', value: 'Cibersegurança aplicada' },
-  { label: 'Stack principal', value: 'Golang · TypeScript · AWS' }
-];
-
 export function Hero() {
   return (
     <header className="grid w-full grid-cols-1">
@@ -26,7 +20,6 @@ export function Hero() {
           <Prompt command="./start-portfolio.sh" />
 
           <div className="flex min-w-0 flex-col gap-3 text-center sm:gap-4 sm:text-left">
-            
             <h1 className="break-words text-2xl font-bold leading-tight text-slate-100 sm:text-4xl md:text-5xl">
               Marcelo Apolinário
             </h1>
@@ -35,25 +28,11 @@ export function Hero() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 items-stretch gap-3 sm:gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+          <div className="grid grid-cols-1 items-stretch gap-3 sm:gap-4">
             <p className="terminal-output flex h-full items-start text-sm text-slate-200 sm:text-base md:text-lg">
-              Construo e automatizo infraestruturas e pipelines seguras com Kubernetes, Terraform, AWS/GCP e Go.
-              Com base sólida em Redes e Linux, atuo com foco em IaC, automação e entrega confiável.
+              Construo, automatizo infraestruturas e pipelines seguras com Kubernetes, Terraform, AWS/GCP e Go.
+              Possuo base sólida em Redes e Linux, com foco em IaC, automação e entrega confiável.
             </p>
-
-            <ul className="grid h-full grid-cols-1 gap-2 sm:gap-3">
-              {highlights.map((highlight) => (
-                <li
-                  key={highlight.label}
-                  className="flex min-h-20 min-w-0 flex-col justify-center rounded-xl border border-term-border/70 bg-slate-950/45 p-3"
-                >
-                  <p className="text-[10px] uppercase tracking-[0.18em] text-term-mute sm:text-xs sm:tracking-[0.2em]">
-                    {highlight.label}
-                  </p>
-                  <p className="mt-1 break-words text-sm font-semibold text-term-cyan sm:text-base">{highlight.value}</p>
-                </li>
-              ))}
-            </ul>
           </div>
 
           <nav
