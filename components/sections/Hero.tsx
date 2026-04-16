@@ -31,14 +31,14 @@ export function Hero() {
               Marcelo Apolinário
             </h1>
             <p className="text-sm text-slate-300 sm:text-xl md:text-2xl">
-              DevOps, Networking Engineer & Linux Enthusiast
+              DevOps, Networking & Platform Engineer
             </p>
           </div>
 
           <div className="grid grid-cols-1 items-stretch gap-3 sm:gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
             <p className="terminal-output flex h-full items-start text-sm text-slate-200 sm:text-base md:text-lg">
-              Desenvolvo soluções escaláveis com foco em performance, automação e práticas de segurança para ambientes
-              modernos.
+              Provisionamento de infraestruturas e pipelines seguras com kubernetes, terraform, aws/gcp e go.
+              Base sólida em redes e linux, com foco em automação, infraestrutura como código e delivery confiável
             </p>
 
             <ul className="grid h-full grid-cols-1 gap-2 sm:gap-3">
