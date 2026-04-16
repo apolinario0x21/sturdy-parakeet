@@ -8,10 +8,10 @@ export function Hero() {
         title="~/home"
         className="hero-panel grid w-full grid-cols-1 border-term-border"
       >
-        <div className="flex h-full w-full flex-col gap-5 py-1 sm:gap-7 sm:py-2 md:gap-8">
+        <div className="flex h-full w-full flex-col gap-4 sm:gap-6 md:gap-8">
           <Prompt command="./start-portfolio.sh" />
 
-          <div className="grid gap-6 sm:gap-7 md:gap-8">
+          <div className="grid flex-1 content-center gap-6 sm:gap-7 md:gap-8">
             <div className="flex min-w-0 flex-col gap-4 text-center sm:gap-5 sm:text-left">
               <h1 className="break-words text-2xl font-bold leading-tight text-slate-100 sm:text-4xl md:text-5xl">
                 Marcelo Apolinário
