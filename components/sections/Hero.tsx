@@ -3,10 +3,10 @@ import { TerminalWindow } from '@/components/TerminalWindow';
 
 export function Hero() {
   return (
-    <header className="grid min-h-[85vh] min-h-[88svh] w-full grid-cols-1 items-center">
+    <header className="grid min-h-[90vh] min-h-[90svh] w-full grid-cols-1 items-center">
       <TerminalWindow
         title="~/home"
-        className="hero-panel grid w-full grid-cols-1 border-term-border"
+        className="hero-panel grid min-h-[90vh] min-h-[90svh] w-full grid-cols-1 border-term-border"
       >
         <div className="flex h-full w-full flex-col gap-4 sm:gap-6 md:gap-8">
           <Prompt command="./start-portfolio.sh" />
