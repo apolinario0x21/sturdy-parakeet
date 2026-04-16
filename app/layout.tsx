@@ -5,8 +5,8 @@ import './globals.css';
 const jetBrains = JetBrains_Mono({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Apolinário | DevOps & Networking Engineer',
-  description: 'Página profissional em estilo terminal Linux para DevOps & Networking Engineer.'
+  title: 'Marcelo Apolinário | DevOps & Networking Engineer',
+  description: 'Marcelo Apolinário - DevOps & Platform Engineer, Kubernetes, Terraform, AWS/GCP, Go.'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
