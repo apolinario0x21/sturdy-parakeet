@@ -32,6 +32,13 @@ type AnimationPhase = {
   charIndex: number;
 };
 
+type TerminalAnimationState = {
+  rendered: RenderedStep[];
+  currentPromptText: string;
+  phase: AnimationPhase;
+  done: boolean;
+};
+
 const TYPING_SPEED = 45;
 const CMD_PAUSE = 600;
 const OUTPUT_PAUSE = 120;
@@ -54,65 +61,120 @@ const sequence: SequenceStep[] = [
   { type: 'cta', lines: ['Ver projetos', 'Ler artigos'] }
 ];
 
+const initialAnimationState: TerminalAnimationState = {
+  rendered: [],
+  currentPromptText: '',
+  phase: { step: 0, charIndex: 0 },
+  done: false
+};
+
+function nextAnimationState(state: TerminalAnimationState): TerminalAnimationState {
+  if (state.done) {
+    return state;
+  }
+
+  const { step, charIndex } = state.phase;
+
+  if (step >= sequence.length) {
+    return {
+      ...state,
+      done: true
+    };
+  }
+
+  const item = sequence[step];
+
+  if (item.type === 'prompt') {
+    if (charIndex < item.text.length) {
+      return {
+        ...state,
+        currentPromptText: item.text.slice(0, charIndex + 1),
+        phase: { step, charIndex: charIndex + 1 }
+      };
+    }
+
+    return {
+      ...state,
+      rendered: [...state.rendered, { type: 'prompt', text: item.text }],
+      currentPromptText: '',
+      phase: { step: step + 1, charIndex: 0 }
+    };
+  }
+
+  if (charIndex < item.lines.length) {
+    const lastRenderedStep = state.rendered[state.rendered.length - 1];
+    const shouldAppendToExistingOutput =
+      lastRenderedStep && lastRenderedStep.type === item.type && 'step' in lastRenderedStep && lastRenderedStep.step === step;
+
+    const nextRendered = shouldAppendToExistingOutput
+      ? [
+          ...state.rendered.slice(0, -1),
+          { ...lastRenderedStep, lines: [...lastRenderedStep.lines, item.lines[charIndex]] } satisfies RenderedOutput
+        ]
+      : [...state.rendered, { type: item.type, lines: [item.lines[charIndex]], step }];
+
+    return {
+      ...state,
+      rendered: nextRendered,
+      phase: { step, charIndex: charIndex + 1 }
+    };
+  }
+
+  return {
+    ...state,
+    phase: { step: step + 1, charIndex: 0 }
+  };
+}
+
+function getAnimationDelay(state: TerminalAnimationState) {
+  if (state.done) {
+    return null;
+  }
+
+  const { step, charIndex } = state.phase;
+
+  if (step >= sequence.length) {
+    return 0;
+  }
+
+  const item = sequence[step];
+  if (item.type === 'prompt') {
+    return charIndex < item.text.length ? TYPING_SPEED : CMD_PAUSE;
+  }
+
+  return charIndex < item.lines.length ? OUTPUT_PAUSE : CMD_PAUSE;
+}
+
 function useTerminalAnimation() {
-  const [rendered, setRendered] = useState<RenderedStep[]>([]);
-  const [currentPromptText, setCurrentPromptText] = useState('');
-  const [phase, setPhase] = useState<AnimationPhase>({ step: 0, charIndex: 0 });
-  const [done, setDone] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const [state, setState] = useState<TerminalAnimationState>(initialAnimationState);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    if (done) {
+    if (state.done) {
       return;
     }
 
-    const { step, charIndex } = phase;
-    if (step >= sequence.length) {
-      setDone(true);
+    const delay = getAnimationDelay(state);
+    if (delay === null) {
       return;
     }
 
-    const item = sequence[step];
-
-    if (item.type === 'prompt') {
-      if (charIndex < item.text.length) {
-        timeoutRef.current = setTimeout(() => {
-          setCurrentPromptText(item.text.slice(0, charIndex + 1));
-          setPhase({ step, charIndex: charIndex + 1 });
-        }, TYPING_SPEED);
-      } else {
-        timeoutRef.current = setTimeout(() => {
-          setRendered((prev) => [...prev, { type: 'prompt', text: item.text }]);
-          setCurrentPromptText('');
-          setPhase({ step: step + 1, charIndex: 0 });
-        }, CMD_PAUSE);
-      }
-    } else if (charIndex < item.lines.length) {
-      timeoutRef.current = setTimeout(() => {
-        setRendered((prev) => {
-          const last = prev[prev.length - 1];
-          if (last && last.type === item.type && 'step' in last && last.step === step) {
-            return [...prev.slice(0, -1), { ...last, lines: [...last.lines, item.lines[charIndex]] }];
-          }
-
-          return [...prev, { type: item.type, lines: [item.lines[charIndex]], step }];
-        });
-        setPhase({ step, charIndex: charIndex + 1 });
-      }, OUTPUT_PAUSE);
-    } else {
-      timeoutRef.current = setTimeout(() => {
-        setPhase({ step: step + 1, charIndex: 0 });
-      }, CMD_PAUSE);
-    }
+    timeoutRef.current = setTimeout(() => {
+      setState((currentState) => nextAnimationState(currentState));
+    }, delay);
 
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [phase, done]);
+  }, [state]);
 
-  return { rendered, currentPromptText, done };
+  return {
+    rendered: state.rendered,
+    currentPromptText: state.currentPromptText,
+    done: state.done
+  };
 }
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
