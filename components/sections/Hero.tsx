@@ -117,12 +117,13 @@ function useTerminalAnimation() {
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
   return (
-    <div className="flex flex-wrap items-baseline">
-      <span className="mr-1 font-semibold text-term-green">marcelo@apolinario</span>
-      <span className="text-term-mute">:</span>
-      <span className="mx-1 text-term-cyan">~</span>
-      <span className="mr-2 text-slate-200">$</span>
-      <span className="break-words text-slate-100">{text}</span>
+    <div className="flex min-w-0 items-baseline">
+      <span className="mr-1 shrink-0 font-semibold text-term-green sm:hidden">marcelo</span>
+      <span className="mr-1 shrink-0 font-semibold text-term-green max-sm:hidden">marcelo@apolinario</span>
+      <span className="shrink-0 text-term-mute">:</span>
+      <span className="mx-1 shrink-0 text-term-cyan">~</span>
+      <span className="mr-2 shrink-0 text-slate-200">$</span>
+      <span className="min-w-0 break-words text-slate-100">{text}</span>
       {cursor && <span className="terminal-cursor ml-1 inline-block h-[1em] w-2 rounded-[1px] bg-term-cyan align-baseline" aria-hidden />}
     </div>
   );
@@ -146,11 +147,37 @@ function CtaButton({ label, href, primary }: { label: string; href: string; prim
 
 export function Hero() {
   const { rendered, currentPromptText, done } = useTerminalAnimation();
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, [rendered, currentPromptText]);
+    const media = window.matchMedia('(max-width: 639px)');
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener('change', update);
+
+    return () => media.removeEventListener('change', update);
+  }, []);
+
+  const staticSequence: RenderedStep[] = [
+    { type: 'prompt', text: 'whoami' },
+    { type: 'output', lines: ['Marcelo Apolinário'], step: 0 },
+    { type: 'prompt', text: 'cat role.txt' },
+    { type: 'output', lines: ['DevOps, Platform & Networking Engineer'], step: 1 },
+    { type: 'prompt', text: './describe --brief' },
+    {
+      type: 'output',
+      lines: [
+        'Provisiono ambientes resilientes e escaláveis.',
+        'Automatizo infraestrutura e pipelines seguras.',
+        'Base em Redes e Linux com foco em IaC.'
+      ],
+      step: 2
+    },
+    { type: 'prompt', text: 'ls ./actions/' },
+    { type: 'cta', lines: ['Ver projetos', 'Ler artigos'], step: 3 }
+  ];
+
+  const blocks = isMobile ? staticSequence : rendered;
 
   return (
     <header className="grid w-full grid-cols-1">
@@ -165,8 +192,8 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="max-h-[65vh] overflow-y-auto px-4 py-6 text-sm leading-7 sm:px-6 sm:text-base">
-          {rendered.map((block, index) => {
+        <div className="min-w-0 overflow-hidden px-4 py-6 text-sm leading-7 sm:px-6 sm:text-base">
+          {blocks.map((block, index) => {
             if (block.type === 'prompt') {
               return (
                 <div key={index} className="mb-1">
@@ -199,19 +226,11 @@ export function Hero() {
             );
           })}
 
-          {!done && (
+          {!isMobile && !done && (
             <div className="mt-1">
               <PromptLine text={currentPromptText} cursor />
             </div>
           )}
-
-          {done && (
-            <div className="mt-4">
-              <PromptLine text="" cursor />
-            </div>
-          )}
-
-          <div ref={bottomRef} />
         </div>
       </section>
     </header>

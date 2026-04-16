@@ -2,11 +2,10 @@ import { Prompt } from '@/components/Prompt';
 import { TerminalWindow } from '@/components/TerminalWindow';
 
 const metadata = [
-  { key: 'Localização', value: 'Brasil 🇧🇷' },
-  { key: 'Graduação', value: 'Sistemas de Informação' },
+  { key: 'Localização', value: 'Brasil' },
+  { key: 'Formação', value: 'Sistemas de Informação' },
   { key: 'Pós-graduação', value: 'Desenvolvimento Web' },
-  { key: 'Especialidades', value: 'DevOps · Cloud · Networking · IaC' },
-  { key: 'OS', value: 'Kali, Fedora, Ubuntu, Zorin OS, Parrot OS e Windows' }
+  { key: 'Áreas de atuação', value: 'DevOps · Cloud · Platform · Networking · IaC' }
 ] as const;
 
 export function About() {
@@ -16,13 +15,12 @@ export function About() {
       <div className="terminal-output grid gap-4 border-l-2 border-l-term-cyan">
         <div className="space-y-4">
           <p>
-            <span className="font-semibold text-term-green">Marcelo Apolinário</span>, profissional com base sólida em{' '}
-            <span className="font-semibold text-term-cyan">Infraestrutura de TI e Redes</span>, especializado em ambientes
-            cloud-native, automação e plataformas escaláveis.
+            Marcelo Apolinário atua na interseção entre infraestrutura, automação e confiabilidade, com base sólida em Redes
+            e Linux e foco em ambientes cloud-native.
           </p>
           <p>
-            Atuo com foco em confiabilidade, segurança e entrega contínua, do provisionamento de redes físicas até pipelines
-            GitOps em produção.
+            Sua experiência combina operação de serviços críticos, infraestrutura como código e pipelines de entrega, buscando
+            reduzir esforço manual, aumentar previsibilidade e sustentar plataformas escaláveis.
           </p>
         </div>
 
