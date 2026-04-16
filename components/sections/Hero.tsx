@@ -1,78 +1,221 @@
-import { Prompt } from '@/components/Prompt';
-import { TerminalWindow } from '@/components/TerminalWindow';
+'use client';
 
-const sectionLinks = [
-  { href: '#about', label: 'About', icon: '👤' },
-  { href: '#stack', label: 'Stack', icon: '⚙️' },
-  { href: '#artigos', label: 'Artigos', icon: '📝' },
-  { href: '#projetos', label: 'Projetos', icon: '💼' },
-  { href: '#links', label: 'Links', icon: '🔗' }
+import { useEffect, useRef, useState } from 'react';
+
+type PromptStep = {
+  type: 'prompt';
+  text: string;
+};
+
+type OutputStep = {
+  type: 'output' | 'cta';
+  lines: string[];
+};
+
+type SequenceStep = PromptStep | OutputStep;
+
+type RenderedPrompt = {
+  type: 'prompt';
+  text: string;
+};
+
+type RenderedOutput = {
+  type: 'output' | 'cta';
+  lines: string[];
+  step: number;
+};
+
+type RenderedStep = RenderedPrompt | RenderedOutput;
+
+type AnimationPhase = {
+  step: number;
+  charIndex: number;
+};
+
+const TYPING_SPEED = 45;
+const CMD_PAUSE = 600;
+const OUTPUT_PAUSE = 120;
+
+const sequence: SequenceStep[] = [
+  { type: 'prompt', text: 'whoami' },
+  { type: 'output', lines: ['Marcelo Apolinário'] },
+  { type: 'prompt', text: 'cat role.txt' },
+  { type: 'output', lines: ['DevOps, Platform & Networking Engineer'] },
+  { type: 'prompt', text: './describe --brief' },
+  {
+    type: 'output',
+    lines: [
+      'Provisiono ambientes resilientes e escaláveis.',
+      'Construo e automatizo infraestruturas e pipelines',
+      'seguras com Kubernetes, Terraform, AWS/GCP e Go.',
+      'Base sólida em Redes e Linux — foco em IaC,',
+      'automação e entrega confiável.'
+    ]
+  },
+  { type: 'prompt', text: 'ls ./actions/' },
+  { type: 'cta', lines: ['Ver projetos', 'Ler artigos'] }
 ];
 
-const highlights = [
-  { label: 'Especialidade', value: 'Back-End & Cloud' },
-  { label: 'Foco', value: 'Cibersegurança aplicada' },
-  { label: 'Stack principal', value: 'Golang · TypeScript · AWS' }
-];
+function useTerminalAnimation() {
+  const [rendered, setRendered] = useState<RenderedStep[]>([]);
+  const [currentPromptText, setCurrentPromptText] = useState('');
+  const [phase, setPhase] = useState<AnimationPhase>({ step: 0, charIndex: 0 });
+  const [done, setDone] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    if (done) {
+      return;
+    }
+
+    const { step, charIndex } = phase;
+    if (step >= sequence.length) {
+      setDone(true);
+      return;
+    }
+
+    const item = sequence[step];
+
+    if (item.type === 'prompt') {
+      if (charIndex < item.text.length) {
+        timeoutRef.current = setTimeout(() => {
+          setCurrentPromptText(item.text.slice(0, charIndex + 1));
+          setPhase({ step, charIndex: charIndex + 1 });
+        }, TYPING_SPEED);
+      } else {
+        timeoutRef.current = setTimeout(() => {
+          setRendered((prev) => [...prev, { type: 'prompt', text: item.text }]);
+          setCurrentPromptText('');
+          setPhase({ step: step + 1, charIndex: 0 });
+        }, CMD_PAUSE);
+      }
+    } else if (charIndex < item.lines.length) {
+      timeoutRef.current = setTimeout(() => {
+        setRendered((prev) => {
+          const last = prev[prev.length - 1];
+          if (last && last.type === item.type && 'step' in last && last.step === step) {
+            return [...prev.slice(0, -1), { ...last, lines: [...last.lines, item.lines[charIndex]] }];
+          }
+
+          return [...prev, { type: item.type, lines: [item.lines[charIndex]], step }];
+        });
+        setPhase({ step, charIndex: charIndex + 1 });
+      }, OUTPUT_PAUSE);
+    } else {
+      timeoutRef.current = setTimeout(() => {
+        setPhase({ step: step + 1, charIndex: 0 });
+      }, CMD_PAUSE);
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [phase, done]);
+
+  return { rendered, currentPromptText, done };
+}
+
+function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
+  return (
+    <div className="flex flex-wrap items-baseline">
+      <span className="mr-1 font-semibold text-term-green">marcelo@apolinario</span>
+      <span className="text-term-mute">:</span>
+      <span className="mx-1 text-term-cyan">~</span>
+      <span className="mr-2 text-slate-200">$</span>
+      <span className="break-words text-slate-100">{text}</span>
+      {cursor && <span className="terminal-cursor ml-1 inline-block h-[1em] w-2 rounded-[1px] bg-term-cyan align-baseline" aria-hidden />}
+    </div>
+  );
+}
+
+function CtaButton({ label, href, primary }: { label: string; href: string; primary?: boolean }) {
+  return (
+    <a
+      href={href}
+      className={`inline-flex items-center rounded-md border px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] transition sm:text-sm ${
+        primary
+          ? 'border-green-600 bg-green-600/95 text-white hover:-translate-y-0.5 hover:bg-blue-600 hover:border-blue-600'
+          : 'border-term-border bg-transparent text-slate-300 hover:-translate-y-0.5 hover:border-term-cyan hover:text-term-cyan'
+      }`}
+    >
+      {primary && <span className="mr-1.5 opacity-80">./</span>}
+      {label}
+    </a>
+  );
+}
 
 export function Hero() {
+  const { rendered, currentPromptText, done } = useTerminalAnimation();
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, [rendered, currentPromptText]);
+
   return (
     <header className="grid w-full grid-cols-1">
-      <TerminalWindow
-        title="~/home"
-        className="hero-panel grid w-full grid-cols-1 border-term-border"
-      >
-        <div className="grid h-full w-full grid-cols-1 gap-4 sm:gap-6">
-          <Prompt command="./start-portfolio.sh" />
-
-          <div className="flex min-w-0 flex-col gap-3 text-center sm:gap-4 sm:text-left">
-            
-            <h1 className="break-words text-2xl font-bold leading-tight text-slate-100 sm:text-4xl md:text-5xl">
-              Marcelo Apolinário
-            </h1>
-            <p className="text-sm text-slate-300 sm:text-xl md:text-2xl">
-              DevOps, Networking Engineer & Linux Enthusiast
-            </p>
+      <section className="hero-panel terminal-card mx-auto w-full max-w-3xl overflow-hidden border-term-border">
+        <div className="flex items-center justify-between border-b border-term-border/80 bg-slate-900/50 px-4 py-3">
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-red-500" />
+            <span className="h-3 w-3 rounded-full bg-yellow-400" />
+            <span className="h-3 w-3 rounded-full bg-green-500" />
           </div>
-
-          <div className="grid grid-cols-1 items-stretch gap-3 sm:gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-            <p className="terminal-output flex h-full items-start text-sm text-slate-200 sm:text-base md:text-lg">
-              Desenvolvo soluções escaláveis com foco em performance, automação e práticas de segurança para ambientes
-              modernos.
-            </p>
-
-            <ul className="grid h-full grid-cols-1 gap-2 sm:gap-3">
-              {highlights.map((highlight) => (
-                <li
-                  key={highlight.label}
-                  className="flex min-h-20 min-w-0 flex-col justify-center rounded-xl border border-term-border/70 bg-slate-950/45 p-3"
-                >
-                  <p className="text-[10px] uppercase tracking-[0.18em] text-term-mute sm:text-xs sm:tracking-[0.2em]">
-                    {highlight.label}
-                  </p>
-                  <p className="mt-1 break-words text-sm font-semibold text-term-cyan sm:text-base">{highlight.value}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <nav
-            className="flex flex-wrap items-center justify-center gap-2 sm:justify-start sm:gap-3"
-            aria-label="Seções da página"
-          >
-            {sectionLinks.map((section) => (
-              <a
-                key={section.href}
-                href={section.href}
-                className="group inline-flex items-center gap-1.5 rounded-full border border-term-border/70 bg-slate-950/50 px-2.5 py-1.5 text-[11px] text-slate-300 transition hover:-translate-y-0.5 hover:border-term-cyan hover:text-term-cyan sm:gap-2 sm:px-4 sm:py-2 sm:text-sm"
-              >
-                <span aria-hidden>{section.icon}</span>
-                <span className="font-semibold tracking-wide">{section.label}</span>
-              </a>
-            ))}
-          </nav>
+          <p className="text-xs tracking-[0.2em] text-term-mute">~/home</p>
+          <div className="w-12" aria-hidden />
         </div>
-      </TerminalWindow>
+
+        <div className="max-h-[65vh] overflow-y-auto px-4 py-6 text-sm leading-7 sm:px-6 sm:text-base">
+          {rendered.map((block, index) => {
+            if (block.type === 'prompt') {
+              return (
+                <div key={index} className="mb-1">
+                  <PromptLine text={block.text} />
+                </div>
+              );
+            }
+
+            if (block.type === 'output') {
+              return (
+                <div key={index} className="mb-3 space-y-1">
+                  {block.lines.map((line, lineIndex) => (
+                    <p key={lineIndex} className="pl-2 text-slate-300">
+                      <span className="mr-2 text-term-mute">›</span>
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              );
+            }
+
+            return (
+              <div key={index} className="mb-2">
+                <p className="mb-3 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
+                <div className="flex flex-wrap gap-3">
+                  <CtaButton label={block.lines[0]} href="#projetos" primary />
+                  <CtaButton label={block.lines[1]} href="#artigos" />
+                </div>
+              </div>
+            );
+          })}
+
+          {!done && (
+            <div className="mt-1">
+              <PromptLine text={currentPromptText} cursor />
+            </div>
+          )}
+
+          {done && (
+            <div className="mt-4">
+              <PromptLine text="" cursor />
+            </div>
+          )}
+
+          <div ref={bottomRef} />
+        </div>
+      </section>
     </header>
   );
 }
