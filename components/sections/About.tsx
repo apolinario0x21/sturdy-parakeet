@@ -1,6 +1,14 @@
 import { Prompt } from '@/components/Prompt';
 import { TerminalWindow } from '@/components/TerminalWindow';
 
+const metadata = [
+  { key: 'Localização', value: 'Brasil 🇧🇷' },
+  { key: 'Graduação', value: 'Sistemas de Informação' },
+  { key: 'Pós-graduação', value: 'Desenvolvimento Web' },
+  { key: 'Especialidades', value: 'DevOps · Cloud · Networking · IaC' },
+  { key: 'OS', value: 'Kali, Fedora, Ubuntu, Zorin OS, Parrot OS e Windows' }
+] as const;
+
 export function About() {
   return (
     <TerminalWindow title="~/about" className="h-full">
@@ -8,27 +16,24 @@ export function About() {
       <div className="terminal-output grid gap-4 border-l-2 border-l-term-cyan">
         <div className="space-y-4">
           <p>
-            <span className="font-semibold text-term-green">Marcelo Apolinário</span> — profissional com{' '}
-            <span className="font-semibold text-term-cyan">fortes raízes em Infraestrutura de TI e Redes</span>, com foco em
-            pipelines cloud-native e automação.
+            <span className="font-semibold text-term-green">Marcelo Apolinário</span>, profissional com base sólida em{' '}
+            <span className="font-semibold text-term-cyan">Infraestrutura de TI e Redes</span>, especializado em ambientes
+            cloud-native, automação e plataformas escaláveis.
           </p>
           <p>
-            Pós-graduando em Desenvolvimento Web e bacharel em Sistemas de Informação. Entusiasta do ecossistema Linux,
-            Segurança da Informação e plataformas escaláveis.
+            Atuo com foco em confiabilidade, segurança e entrega contínua, do provisionamento de redes físicas até pipelines
+            GitOps em produção.
           </p>
         </div>
-        <dl className="grid gap-2 text-sm sm:grid-cols-[160px_1fr]">
-          <dt className="text-term-mute">Localização:</dt>
-          <dd>Brasil 🇧🇷</dd>
-          <dt className="text-term-mute">Graduação:</dt>
-          <dd>Sistemas de Informação</dd>
-          <dt className="text-term-mute">Pós-graduação:</dt>
-          <dd>Desenvolvimento Web</dd>
-          <dt className="text-term-mute">Especialidades:</dt>
-          <dd>DevOps · Cloud · Networking · IaC</dd>
-          <dt className="text-term-mute">OS:</dt>
-          <dd>Kali, Fedora, Ubuntu, Zorin OS, Parrot OS e Windows</dd>
-        </dl>
+
+        <ul className="space-y-1.5 font-mono text-sm">
+          {metadata.map(({ key, value }) => (
+            <li key={key} className="grid grid-cols-[18ch_1fr] gap-3">
+              <span className="text-term-mute">{key}:</span>
+              <span>{value}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </TerminalWindow>
   );
