@@ -62,6 +62,13 @@ export function Hero() {
     }
 
     setDone(true);
+  }, [typedCommand, done]);
+
+  useEffect(() => {
+    if (!done) {
+      return;
+    }
+
     revealTimeoutRef.current = setTimeout(() => {
       setShowContent(true);
     }, CONTENT_REVEAL_DELAY);
@@ -71,7 +78,7 @@ export function Hero() {
         clearTimeout(revealTimeoutRef.current);
       }
     };
-  }, [typedCommand, done]);
+  }, [done]);
 
   return (
     <header className="grid min-h-[calc(100svh-1.5rem)] w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)]">
