@@ -75,22 +75,26 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="flex h-[58svh] flex-col justify-between overflow-x-hidden overflow-y-auto px-3 pb-4 pt-3 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-6 sm:pt-4 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:pb-8">
-          <div className="mx-auto w-full max-w-[72ch]">
-            <PromptLine text={typedCommand} cursor={!done} />
+        <div className="flex h-[58svh] flex-col overflow-x-hidden overflow-y-auto px-3 pb-4 pt-3 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-6 sm:pt-4 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:pb-8">
+          <div className="flex flex-1 items-center">
+            <div className="mx-auto w-full max-w-[72ch] text-center">
+              <div className="flex justify-center">
+                <PromptLine text={typedCommand} cursor={!done} />
+              </div>
 
-            {done && (
-              <>
-                <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
-                <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
-                  DevOps &amp; Networking Engineer
-                </p>
-                <p className="mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
-              </>
-            )}
+              {done && (
+                <>
+                  <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
+                  <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
+                    DevOps &amp; Networking Engineer
+                  </p>
+                  <p className="mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
+                </>
+              )}
+            </div>
           </div>
 
-          <div className="mx-auto mt-8 flex w-full max-w-[72ch] flex-wrap gap-3 border-t border-term-border/60 pt-5">
+          <div className="mt-8 flex w-full flex-wrap justify-end gap-3 border-t border-term-border/60 pt-5">
             <CtaButton label="Ver projetos" href="#projetos" primary />
             <CtaButton label="Ler artigos" href="#artigos" />
           </div>
