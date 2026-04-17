@@ -24,7 +24,7 @@ export function Links() {
         ))}
       </div>
       <p className="break-words rounded-md bg-term-green px-3 py-2 text-sm font-semibold text-slate-900 sm:text-base">
-        marcelo@apolinario · DevOps & Networking · Linux Enthusiast · 2026
+        marcelo@apolinario · DevOps & Platform Engineer · 2026
       </p>
     </TerminalWindow>
   );
