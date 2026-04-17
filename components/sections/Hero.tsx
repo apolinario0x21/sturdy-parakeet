@@ -2,180 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-type PromptStep = {
-  type: 'prompt';
-  text: string;
-};
-
-type OutputStep = {
-  type: 'output' | 'cta';
-  lines: string[];
-};
-
-type SequenceStep = PromptStep | OutputStep;
-
-type RenderedPrompt = {
-  type: 'prompt';
-  text: string;
-};
-
-type RenderedOutput = {
-  type: 'output' | 'cta';
-  lines: string[];
-  step: number;
-};
-
-type RenderedStep = RenderedPrompt | RenderedOutput;
-
-type AnimationPhase = {
-  step: number;
-  charIndex: number;
-};
-
-type TerminalAnimationState = {
-  rendered: RenderedStep[];
-  currentPromptText: string;
-  phase: AnimationPhase;
-  done: boolean;
-};
-
+const PROMPT_COMMAND = 'whoami';
 const TYPING_SPEED = 45;
-const CMD_PAUSE = 600;
-const OUTPUT_PAUSE = 120;
-
-const sequence: SequenceStep[] = [
-  { type: 'prompt', text: 'whoami' },
-  { type: 'output', lines: ['Marcelo Apolinário'] },
-  { type: 'prompt', text: 'cat role.txt' },
-  { type: 'output', lines: ['DevOps, Platform & Networking Engineer'] },
-  { type: 'prompt', text: './describe --brief' },
-  {
-    type: 'output',
-    lines: [
-      'Provisiono ambientes resilientes e escaláveis.',
-      'Construo e automatizo infraestruturas e pipelines seguras com Kubernetes, Terraform, AWS/GCP e Go.',
-      'Base sólida em Redes e Linux — foco em IaC, automação e entrega confiável.'
-    ]
-  },
-  { type: 'prompt', text: 'ls ./actions/' },
-  { type: 'cta', lines: ['Ver projetos', 'Ler artigos'] }
-];
-
-const initialAnimationState: TerminalAnimationState = {
-  rendered: [],
-  currentPromptText: '',
-  phase: { step: 0, charIndex: 0 },
-  done: false
-};
-
-function nextAnimationState(state: TerminalAnimationState): TerminalAnimationState {
-  if (state.done) {
-    return state;
-  }
-
-  const { step, charIndex } = state.phase;
-
-  if (step >= sequence.length) {
-    return {
-      ...state,
-      done: true
-    };
-  }
-
-  const item = sequence[step];
-
-  if (item.type === 'prompt') {
-    if (charIndex < item.text.length) {
-      return {
-        ...state,
-        currentPromptText: item.text.slice(0, charIndex + 1),
-        phase: { step, charIndex: charIndex + 1 }
-      };
-    }
-
-    return {
-      ...state,
-      rendered: [...state.rendered, { type: 'prompt', text: item.text }],
-      currentPromptText: '',
-      phase: { step: step + 1, charIndex: 0 }
-    };
-  }
-
-  if (charIndex < item.lines.length) {
-    const lastRenderedStep = state.rendered[state.rendered.length - 1];
-    const shouldAppendToExistingOutput =
-      lastRenderedStep && lastRenderedStep.type === item.type && 'step' in lastRenderedStep && lastRenderedStep.step === step;
-
-    const nextRendered = shouldAppendToExistingOutput
-      ? [
-          ...state.rendered.slice(0, -1),
-          { ...lastRenderedStep, lines: [...lastRenderedStep.lines, item.lines[charIndex]] } satisfies RenderedOutput
-        ]
-      : [...state.rendered, { type: item.type, lines: [item.lines[charIndex]], step }];
-
-    return {
-      ...state,
-      rendered: nextRendered,
-      phase: { step, charIndex: charIndex + 1 }
-    };
-  }
-
-  return {
-    ...state,
-    phase: { step: step + 1, charIndex: 0 }
-  };
-}
-
-function getAnimationDelay(state: TerminalAnimationState) {
-  if (state.done) {
-    return null;
-  }
-
-  const { step, charIndex } = state.phase;
-
-  if (step >= sequence.length) {
-    return 0;
-  }
-
-  const item = sequence[step];
-  if (item.type === 'prompt') {
-    return charIndex < item.text.length ? TYPING_SPEED : CMD_PAUSE;
-  }
-
-  return charIndex < item.lines.length ? OUTPUT_PAUSE : CMD_PAUSE;
-}
-
-function useTerminalAnimation() {
-  const [state, setState] = useState<TerminalAnimationState>(initialAnimationState);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-
-  useEffect(() => {
-    if (state.done) {
-      return;
-    }
-
-    const delay = getAnimationDelay(state);
-    if (delay === null) {
-      return;
-    }
-
-    timeoutRef.current = setTimeout(() => {
-      setState((currentState) => nextAnimationState(currentState));
-    }, delay);
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [state]);
-
-  return {
-    rendered: state.rendered,
-    currentPromptText: state.currentPromptText,
-    done: state.done
-  };
-}
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
   return (
@@ -209,12 +37,30 @@ function CtaButton({ label, href, primary }: { label: string; href: string; prim
 }
 
 export function Hero() {
-  const { rendered, currentPromptText, done } = useTerminalAnimation();
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const [typedCommand, setTypedCommand] = useState('');
+  const [done, setDone] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'auto', block: 'nearest' });
-  }, [rendered.length, done]);
+    if (done) {
+      return;
+    }
+
+    if (typedCommand.length < PROMPT_COMMAND.length) {
+      timeoutRef.current = setTimeout(() => {
+        setTypedCommand(PROMPT_COMMAND.slice(0, typedCommand.length + 1));
+      }, TYPING_SPEED);
+
+      return () => {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      };
+    }
+
+    setDone(true);
+    return undefined;
+  }, [typedCommand, done]);
 
   return (
     <header className="grid w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)]">
@@ -229,67 +75,24 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="h-[58svh] overflow-x-hidden overflow-y-auto px-3 pb-4 pt-2 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-6 sm:pt-3 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:pb-8 lg:pt-4">
-          <div className="mx-auto flex w-full max-w-[72ch] flex-col">
-            {rendered.map((block, index) => {
-              if (block.type === 'prompt') {
-                return (
-                  <div key={index} className="mb-1 min-w-0">
-                    <PromptLine text={block.text} />
-                  </div>
-                );
-              }
-
-              if (block.type === 'output') {
-                const outputClassByStep =
-                  block.step === 1
-                    ? 'mb-5 space-y-1 rounded-lg border border-term-green/35 bg-term-green/10 px-3 py-2'
-                    : block.step === 3
-                      ? 'mb-5 space-y-1 rounded-lg border border-term-cyan/30 bg-term-cyan/5 px-3 py-2'
-                      : 'mb-6 space-y-2';
-                const lineClassByStep =
-                  block.step === 1
-                    ? 'pl-2 text-lg font-semibold text-term-green sm:text-2xl'
-                    : block.step === 3
-                      ? 'pl-2 text-sm font-medium tracking-[0.02em] text-term-cyan sm:text-lg'
-                      : 'pl-2 text-slate-300';
-
-                return (
-                  <div key={index} className={outputClassByStep}>
-                    {block.lines.map((line, lineIndex) => (
-                      <p key={lineIndex} className={lineClassByStep}>
-                        <span className="mr-2 text-term-mute">›</span>
-                        {line}
-                      </p>
-                    ))}
-                  </div>
-                );
-              }
-
-              return (
-                <div key={index} className="mb-2 mt-2">
-                  <p className="mb-4 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
-                  <div className="flex flex-wrap gap-3">
-                    <CtaButton label={block.lines[0]} href="#projetos" primary />
-                    <CtaButton label={block.lines[1]} href="#artigos" />
-                  </div>
-                </div>
-              );
-            })}
-
-            {!done && (
-              <div className="mt-1 min-w-0">
-                <PromptLine text={currentPromptText} cursor />
-              </div>
-            )}
+        <div className="flex h-[58svh] flex-col justify-between overflow-x-hidden overflow-y-auto px-3 pb-4 pt-3 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-6 sm:pt-4 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:pb-8">
+          <div className="mx-auto w-full max-w-[72ch]">
+            <PromptLine text={typedCommand} cursor={!done} />
 
             {done && (
-              <div className="mt-3 min-w-0">
-                <PromptLine text="" cursor />
-              </div>
+              <>
+                <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
+                <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
+                  DevOps &amp; Networking Engineer
+                </p>
+                <p className="mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
+              </>
             )}
+          </div>
 
-            <div ref={bottomRef} />
+          <div className="mx-auto mt-8 flex w-full max-w-[72ch] flex-wrap gap-3 border-t border-term-border/60 pt-5">
+            <CtaButton label="Ver projetos" href="#projetos" primary />
+            <CtaButton label="Ler artigos" href="#artigos" />
           </div>
         </div>
       </section>
