@@ -229,7 +229,7 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="max-h-[54svh] overflow-x-hidden overflow-y-auto px-3 py-4 text-sm leading-6 sm:max-h-[65vh] sm:px-6 sm:py-6 sm:text-base sm:leading-7">
+        <div className="h-[54svh] overflow-x-hidden overflow-y-auto px-3 py-4 text-sm leading-6 sm:h-[65vh] sm:px-6 sm:py-6 sm:text-base sm:leading-7">
           {rendered.map((block, index) => {
             if (block.type === 'prompt') {
               return (
