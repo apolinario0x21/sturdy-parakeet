@@ -217,8 +217,8 @@ export function Hero() {
   }, [rendered.length, done]);
 
   return (
-    <header className="grid w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)]">
-      <section className="hero-panel terminal-card w-full overflow-hidden border-term-border lg:flex lg:h-full lg:flex-col">
+    <header className="grid w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)] lg:items-center">
+      <section className="hero-panel terminal-card w-full overflow-hidden border-term-border lg:flex lg:h-[70vh] lg:max-h-[760px] lg:flex-col">
         <div className="flex items-center justify-between border-b border-term-border/80 bg-slate-900/50 px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-red-500" />
@@ -229,8 +229,8 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="h-[64svh] overflow-x-hidden overflow-y-auto px-3 py-4 text-sm leading-6 sm:h-[65vh] sm:px-6 sm:py-6 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1">
-          <div className="md:flex md:min-h-full md:flex-col md:justify-center">
+        <div className="h-[58svh] overflow-x-hidden overflow-y-auto px-3 pb-4 pt-2 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-6 sm:pt-3 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:pb-8 lg:pt-4">
+          <div className="mx-auto flex w-full max-w-[72ch] flex-col">
             {rendered.map((block, index) => {
               if (block.type === 'prompt') {
                 return (
@@ -241,10 +241,23 @@ export function Hero() {
               }
 
               if (block.type === 'output') {
+                const outputClassByStep =
+                  block.step === 1
+                    ? 'mb-5 space-y-1 rounded-lg border border-term-green/35 bg-term-green/10 px-3 py-2'
+                    : block.step === 3
+                      ? 'mb-5 space-y-1 rounded-lg border border-term-cyan/30 bg-term-cyan/5 px-3 py-2'
+                      : 'mb-6 space-y-2';
+                const lineClassByStep =
+                  block.step === 1
+                    ? 'pl-2 text-lg font-semibold text-term-green sm:text-2xl'
+                    : block.step === 3
+                      ? 'pl-2 text-sm font-medium tracking-[0.02em] text-term-cyan sm:text-lg'
+                      : 'pl-2 text-slate-300';
+
                 return (
-                  <div key={index} className="mb-3 space-y-1">
+                  <div key={index} className={outputClassByStep}>
                     {block.lines.map((line, lineIndex) => (
-                      <p key={lineIndex} className="pl-2 text-slate-300">
+                      <p key={lineIndex} className={lineClassByStep}>
                         <span className="mr-2 text-term-mute">›</span>
                         {line}
                       </p>
@@ -254,8 +267,8 @@ export function Hero() {
               }
 
               return (
-                <div key={index} className="mb-2">
-                  <p className="mb-3 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
+                <div key={index} className="mb-2 mt-2">
+                  <p className="mb-4 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
                   <div className="flex flex-wrap gap-3">
                     <CtaButton label={block.lines[0]} href="#projetos" primary />
                     <CtaButton label={block.lines[1]} href="#artigos" />
