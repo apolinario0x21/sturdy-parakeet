@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const PROMPT_COMMAND = 'whoami';
 const TYPING_SPEED = 45;
+const CONTENT_REVEAL_DELAY = 450;
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
   return (
@@ -39,7 +40,9 @@ function CtaButton({ label, href, primary }: { label: string; href: string; prim
 export function Hero() {
   const [typedCommand, setTypedCommand] = useState('');
   const [done, setDone] = useState(false);
+  const [showContent, setShowContent] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const revealTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     if (done) {
@@ -59,12 +62,27 @@ export function Hero() {
     }
 
     setDone(true);
-    return undefined;
   }, [typedCommand, done]);
 
+  useEffect(() => {
+    if (!done) {
+      return;
+    }
+
+    revealTimeoutRef.current = setTimeout(() => {
+      setShowContent(true);
+    }, CONTENT_REVEAL_DELAY);
+
+    return () => {
+      if (revealTimeoutRef.current) {
+        clearTimeout(revealTimeoutRef.current);
+      }
+    };
+  }, [done]);
+
   return (
-    <header className="grid w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)]">
-      <section className="hero-panel terminal-card w-full overflow-hidden border-term-border lg:flex lg:h-full lg:flex-col">
+    <header className="grid min-h-[calc(100svh-1.5rem)] w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)]">
+      <section className="hero-panel terminal-card flex h-full w-full flex-col overflow-hidden border-term-border">
         <div className="flex items-center justify-between border-b border-term-border/80 bg-slate-900/50 px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-red-500" />
@@ -75,14 +93,14 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="flex h-[58svh] flex-col overflow-x-hidden overflow-y-auto px-3 pb-4 pt-3 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-6 sm:pt-4 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:pb-8">
+        <div className="flex min-h-0 flex-1 flex-col overflow-x-hidden overflow-y-auto px-3 pb-4 pt-3 text-sm leading-6 sm:px-6 sm:pb-6 sm:pt-4 sm:text-base sm:leading-7 lg:pb-8">
           <div className="flex flex-1 items-center">
             <div className="mx-auto w-full max-w-[72ch] text-center">
               <div className="flex justify-center">
                 <PromptLine text={typedCommand} cursor={!done} />
               </div>
 
-              {done && (
+              {showContent && (
                 <>
                   <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
                   <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
