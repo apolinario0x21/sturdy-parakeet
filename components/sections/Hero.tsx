@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const PROMPT_COMMAND = 'whoami';
 const TYPING_SPEED = 45;
+const CONTENT_REVEAL_DELAY = 450;
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
   return (
@@ -39,7 +40,9 @@ function CtaButton({ label, href, primary }: { label: string; href: string; prim
 export function Hero() {
   const [typedCommand, setTypedCommand] = useState('');
   const [done, setDone] = useState(false);
+  const [showContent, setShowContent] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const revealTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     if (done) {
@@ -59,7 +62,15 @@ export function Hero() {
     }
 
     setDone(true);
-    return undefined;
+    revealTimeoutRef.current = setTimeout(() => {
+      setShowContent(true);
+    }, CONTENT_REVEAL_DELAY);
+
+    return () => {
+      if (revealTimeoutRef.current) {
+        clearTimeout(revealTimeoutRef.current);
+      }
+    };
   }, [typedCommand, done]);
 
   return (
@@ -82,7 +93,7 @@ export function Hero() {
                 <PromptLine text={typedCommand} cursor={!done} />
               </div>
 
-              {done && (
+              {showContent && (
                 <>
                   <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
                   <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
