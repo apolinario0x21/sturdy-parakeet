@@ -217,8 +217,8 @@ export function Hero() {
   }, [rendered.length, done]);
 
   return (
-    <header className="grid w-full grid-cols-1">
-      <section className="hero-panel terminal-card w-full overflow-hidden border-term-border">
+    <header className="grid w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)]">
+      <section className="hero-panel terminal-card w-full overflow-hidden border-term-border lg:flex lg:h-full lg:flex-col">
         <div className="flex items-center justify-between border-b border-term-border/80 bg-slate-900/50 px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-red-500" />
@@ -229,7 +229,7 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="h-[64svh] overflow-x-hidden overflow-y-auto px-3 py-4 text-sm leading-6 sm:h-[65vh] sm:px-6 sm:py-6 sm:text-base sm:leading-7">
+        <div className="h-[64svh] overflow-x-hidden overflow-y-auto px-3 py-4 text-sm leading-6 sm:h-[65vh] sm:px-6 sm:py-6 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1">
           <div className="md:flex md:min-h-full md:flex-col md:justify-center">
             {rendered.map((block, index) => {
               if (block.type === 'prompt') {
