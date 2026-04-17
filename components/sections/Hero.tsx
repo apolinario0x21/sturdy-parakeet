@@ -218,7 +218,7 @@ export function Hero() {
 
   return (
     <header className="grid w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)]">
-      <section className="hero-panel terminal-card w-full overflow-hidden border-term-border lg:flex lg:h-full lg:flex-col">
+      <section className="hero-panel terminal-card mx-auto w-full max-w-6xl overflow-hidden border-term-border lg:flex lg:h-full lg:flex-col lg:justify-center">
         <div className="flex items-center justify-between border-b border-term-border/80 bg-slate-900/50 px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-red-500" />
@@ -229,8 +229,8 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="h-[64svh] overflow-x-hidden overflow-y-auto px-3 py-4 text-sm leading-6 sm:h-[65vh] sm:px-6 sm:py-6 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1">
-          <div className="md:flex md:min-h-full md:flex-col md:justify-center">
+        <div className="h-[58svh] overflow-x-hidden overflow-y-auto px-3 pb-5 pt-2 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-7 sm:pt-3 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:py-8">
+          <div className="mx-auto flex min-h-full w-full max-w-4xl flex-col justify-center">
             {rendered.map((block, index) => {
               if (block.type === 'prompt') {
                 return (
@@ -241,10 +241,28 @@ export function Hero() {
               }
 
               if (block.type === 'output') {
+                const isNameOutput = block.step === 1;
+                const isRoleOutput = block.step === 3;
+                const isDescriptionOutput = block.step === 5;
+
                 return (
-                  <div key={index} className="mb-3 space-y-1">
+                  <div
+                    key={index}
+                    className={`space-y-1 ${
+                      isNameOutput ? 'mb-5' : isRoleOutput ? 'mb-6' : isDescriptionOutput ? 'mb-6 max-w-3xl' : 'mb-4'
+                    }`}
+                  >
                     {block.lines.map((line, lineIndex) => (
-                      <p key={lineIndex} className="pl-2 text-slate-300">
+                      <p
+                        key={lineIndex}
+                        className={`pl-2 ${
+                          isNameOutput
+                            ? 'text-lg font-semibold tracking-wide text-term-green sm:text-xl'
+                            : isRoleOutput
+                              ? 'text-base font-medium text-term-cyan sm:text-lg'
+                              : 'text-slate-300'
+                        }`}
+                      >
                         <span className="mr-2 text-term-mute">›</span>
                         {line}
                       </p>
