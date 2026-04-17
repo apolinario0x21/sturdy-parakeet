@@ -241,23 +241,10 @@ export function Hero() {
               }
 
               if (block.type === 'output') {
-                const outputClassByStep =
-                  block.step === 1
-                    ? 'mb-5 space-y-1 rounded-lg border border-term-green/35 bg-term-green/10 px-3 py-2'
-                    : block.step === 3
-                      ? 'mb-5 space-y-1 rounded-lg border border-term-cyan/30 bg-term-cyan/5 px-3 py-2'
-                      : 'mb-6 space-y-2';
-                const lineClassByStep =
-                  block.step === 1
-                    ? 'pl-2 text-lg font-semibold text-term-green sm:text-2xl'
-                    : block.step === 3
-                      ? 'pl-2 text-sm font-medium tracking-[0.02em] text-term-cyan sm:text-lg'
-                      : 'pl-2 text-slate-300';
-
                 return (
-                  <div key={index} className={outputClassByStep}>
+                  <div key={index} className="mb-3 space-y-1">
                     {block.lines.map((line, lineIndex) => (
-                      <p key={lineIndex} className={lineClassByStep}>
+                      <p key={lineIndex} className="pl-2 text-slate-300">
                         <span className="mr-2 text-term-mute">›</span>
                         {line}
                       </p>
@@ -267,8 +254,8 @@ export function Hero() {
               }
 
               return (
-                <div key={index} className="mb-2 mt-2">
-                  <p className="mb-4 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
+                <div key={index} className="mb-2">
+                  <p className="mb-3 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
                   <div className="flex flex-wrap gap-3">
                     <CtaButton label={block.lines[0]} href="#projetos" primary />
                     <CtaButton label={block.lines[1]} href="#artigos" />
