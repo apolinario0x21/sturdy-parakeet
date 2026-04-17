@@ -229,53 +229,55 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="h-[54svh] overflow-x-hidden overflow-y-auto px-3 py-4 text-sm leading-6 sm:h-[65vh] sm:px-6 sm:py-6 sm:text-base sm:leading-7">
-          {rendered.map((block, index) => {
-            if (block.type === 'prompt') {
+        <div className="h-[64svh] overflow-x-hidden overflow-y-auto px-3 py-4 text-sm leading-6 sm:h-[65vh] sm:px-6 sm:py-6 sm:text-base sm:leading-7">
+          <div className="md:flex md:min-h-full md:flex-col md:justify-center">
+            {rendered.map((block, index) => {
+              if (block.type === 'prompt') {
+                return (
+                  <div key={index} className="mb-1 min-w-0">
+                    <PromptLine text={block.text} />
+                  </div>
+                );
+              }
+
+              if (block.type === 'output') {
+                return (
+                  <div key={index} className="mb-3 space-y-1">
+                    {block.lines.map((line, lineIndex) => (
+                      <p key={lineIndex} className="pl-2 text-slate-300">
+                        <span className="mr-2 text-term-mute">›</span>
+                        {line}
+                      </p>
+                    ))}
+                  </div>
+                );
+              }
+
               return (
-                <div key={index} className="mb-1 min-w-0">
-                  <PromptLine text={block.text} />
+                <div key={index} className="mb-2">
+                  <p className="mb-3 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
+                  <div className="flex flex-wrap gap-3">
+                    <CtaButton label={block.lines[0]} href="#projetos" primary />
+                    <CtaButton label={block.lines[1]} href="#artigos" />
+                  </div>
                 </div>
               );
-            }
+            })}
 
-            if (block.type === 'output') {
-              return (
-                <div key={index} className="mb-3 space-y-1">
-                  {block.lines.map((line, lineIndex) => (
-                    <p key={lineIndex} className="pl-2 text-slate-300">
-                      <span className="mr-2 text-term-mute">›</span>
-                      {line}
-                    </p>
-                  ))}
-                </div>
-              );
-            }
-
-            return (
-              <div key={index} className="mb-2">
-                <p className="mb-3 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
-                <div className="flex flex-wrap gap-3">
-                  <CtaButton label={block.lines[0]} href="#projetos" primary />
-                  <CtaButton label={block.lines[1]} href="#artigos" />
-                </div>
+            {!done && (
+              <div className="mt-1 min-w-0">
+                <PromptLine text={currentPromptText} cursor />
               </div>
-            );
-          })}
+            )}
 
-          {!done && (
-            <div className="mt-1 min-w-0">
-              <PromptLine text={currentPromptText} cursor />
-            </div>
-          )}
+            {done && (
+              <div className="mt-3 min-w-0">
+                <PromptLine text="" cursor />
+              </div>
+            )}
 
-          {done && (
-            <div className="mt-3 min-w-0">
-              <PromptLine text="" cursor />
-            </div>
-          )}
-
-          <div ref={bottomRef} />
+            <div ref={bottomRef} />
+          </div>
         </div>
       </section>
     </header>
