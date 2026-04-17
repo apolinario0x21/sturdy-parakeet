@@ -179,13 +179,15 @@ function useTerminalAnimation() {
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
   return (
-    <div className="flex flex-wrap items-baseline">
-      <span className="mr-1 font-semibold text-term-green">marcelo@apolinario</span>
+    <div className="grid min-w-0 grid-cols-[auto_auto_auto_auto_minmax(0,1fr)] items-baseline gap-x-1">
+      <span className="font-semibold text-term-green">marcelo@apolinario</span>
       <span className="text-term-mute">:</span>
-      <span className="mx-1 text-term-cyan">~</span>
-      <span className="mr-2 text-slate-200">$</span>
-      <span className="break-words text-slate-100">{text}</span>
-      {cursor && <span className="terminal-cursor ml-1 inline-block h-[1em] w-2 rounded-[1px] bg-term-cyan align-baseline" aria-hidden />}
+      <span className="text-term-cyan">~</span>
+      <span className="text-slate-200">$</span>
+      <span className="min-w-0 break-words text-slate-100">
+        {text}
+        {cursor && <span className="terminal-cursor ml-1 inline-block h-[1em] w-2 rounded-[1px] bg-term-cyan align-baseline" aria-hidden />}
+      </span>
     </div>
   );
 }
@@ -196,7 +198,7 @@ function CtaButton({ label, href, primary }: { label: string; href: string; prim
       href={href}
       className={`inline-flex items-center rounded-md border px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] transition sm:text-sm ${
         primary
-          ? 'border-green-600 bg-green-600/95 text-white hover:-translate-y-0.5 hover:bg-blue-600 hover:border-blue-600'
+          ? 'border-green-600 bg-green-600/95 text-white hover:-translate-y-0.5 hover:border-blue-600 hover:bg-blue-600'
           : 'border-term-border bg-transparent text-slate-300 hover:-translate-y-0.5 hover:border-term-cyan hover:text-term-cyan'
       }`}
     >
@@ -211,8 +213,8 @@ export function Hero() {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, [rendered, currentPromptText]);
+    bottomRef.current?.scrollIntoView({ behavior: 'auto', block: 'nearest' });
+  }, [rendered.length, done]);
 
   return (
     <header className="grid w-full grid-cols-1">
@@ -227,11 +229,11 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="max-h-[65vh] overflow-y-auto px-4 py-6 text-sm leading-7 sm:px-6 sm:text-base">
+        <div className="max-h-[54svh] overflow-x-hidden overflow-y-auto px-3 py-4 text-sm leading-6 sm:max-h-[65vh] sm:px-6 sm:py-6 sm:text-base sm:leading-7">
           {rendered.map((block, index) => {
             if (block.type === 'prompt') {
               return (
-                <div key={index} className="mb-1">
+                <div key={index} className="mb-1 min-w-0">
                   <PromptLine text={block.text} />
                 </div>
               );
@@ -262,13 +264,13 @@ export function Hero() {
           })}
 
           {!done && (
-            <div className="mt-1">
+            <div className="mt-1 min-w-0">
               <PromptLine text={currentPromptText} cursor />
             </div>
           )}
 
           {done && (
-            <div className="mt-4">
+            <div className="mt-3 min-w-0">
               <PromptLine text="" cursor />
             </div>
           )}

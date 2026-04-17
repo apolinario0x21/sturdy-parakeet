@@ -13,10 +13,10 @@ const sectionItems = [
 
 export default function HomePage() {
   return (
-    <main className="mx-auto grid min-h-screen w-full max-w-6xl grid-cols-1 gap-4 px-2.5 py-3 sm:gap-6 sm:px-4 sm:py-6 lg:px-8">
+    <main className="mx-auto grid min-h-screen w-full max-w-6xl grid-cols-1 gap-5 px-2.5 py-3 sm:gap-8 sm:px-4 sm:py-6 lg:px-8">
       <Hero />
 
-      <div className="grid grid-cols-1 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 gap-7 sm:gap-10">
         {sectionItems.map((item) => (
           <section key={item.id} id={item.id} className="grid grid-cols-1 gap-3 scroll-mt-6 sm:scroll-mt-8">
             <header className="section-header">
