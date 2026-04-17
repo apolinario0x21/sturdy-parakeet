@@ -75,8 +75,8 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="flex h-[58svh] flex-col justify-between overflow-x-hidden overflow-y-auto px-3 pb-4 pt-3 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-6 sm:pt-4 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:pb-8">
-          <div className="mx-auto w-full max-w-[72ch]">
+        <div className="relative flex h-[58svh] flex-col overflow-x-hidden overflow-y-auto px-3 pb-4 pt-3 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-6 sm:pt-4 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:pb-8">
+          <div className="mx-auto flex h-full w-full max-w-[72ch] flex-col items-center justify-center text-center">
             <PromptLine text={typedCommand} cursor={!done} />
 
             {done && (
@@ -90,7 +90,7 @@ export function Hero() {
             )}
           </div>
 
-          <div className="mx-auto mt-8 flex w-full max-w-[72ch] flex-wrap gap-3 border-t border-term-border/60 pt-5">
+          <div className="absolute bottom-0 right-0 flex w-full max-w-[72ch] flex-wrap justify-end gap-3 border-t border-term-border/60 pt-5 pb-1 sm:pb-2">
             <CtaButton label="Ver projetos" href="#projetos" primary />
             <CtaButton label="Ler artigos" href="#artigos" />
           </div>
