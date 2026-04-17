@@ -218,7 +218,7 @@ export function Hero() {
 
   return (
     <header className="grid w-full grid-cols-1">
-      <section className="hero-panel terminal-card mx-auto w-full max-w-3xl overflow-hidden border-term-border">
+      <section className="hero-panel terminal-card w-full overflow-hidden border-term-border">
         <div className="flex items-center justify-between border-b border-term-border/80 bg-slate-900/50 px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="h-3 w-3 rounded-full bg-red-500" />
