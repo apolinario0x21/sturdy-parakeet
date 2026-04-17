@@ -8,7 +8,7 @@ type PromptStep = {
 };
 
 type OutputStep = {
-  type: 'output' | 'cta';
+  type: 'output';
   lines: string[];
 };
 
@@ -20,7 +20,7 @@ type RenderedPrompt = {
 };
 
 type RenderedOutput = {
-  type: 'output' | 'cta';
+  type: 'output';
   lines: string[];
   step: number;
 };
@@ -40,25 +40,14 @@ type TerminalAnimationState = {
 };
 
 const TYPING_SPEED = 45;
-const CMD_PAUSE = 600;
-const OUTPUT_PAUSE = 120;
+const CMD_PAUSE = 500;
+const OUTPUT_PAUSE = 180;
 
 const sequence: SequenceStep[] = [
   { type: 'prompt', text: 'whoami' },
   { type: 'output', lines: ['Marcelo Apolinário'] },
-  { type: 'prompt', text: 'cat role.txt' },
-  { type: 'output', lines: ['DevOps, Platform & Networking Engineer'] },
-  { type: 'prompt', text: './describe --brief' },
-  {
-    type: 'output',
-    lines: [
-      'Provisiono ambientes resilientes e escaláveis.',
-      'Construo e automatizo infraestruturas e pipelines seguras com Kubernetes, Terraform, AWS/GCP e Go.',
-      'Base sólida em Redes e Linux — foco em IaC, automação e entrega confiável.'
-    ]
-  },
-  { type: 'prompt', text: 'ls ./actions/' },
-  { type: 'cta', lines: ['Ver projetos', 'Ler artigos'] }
+  { type: 'output', lines: ['DevOps & Networking Engineer'] },
+  { type: 'output', lines: ['Provisiono ambientes resilientes e escaláveis.'] }
 ];
 
 const initialAnimationState: TerminalAnimationState = {
@@ -229,50 +218,39 @@ export function Hero() {
           <div className="w-12" aria-hidden />
         </div>
 
-        <div className="h-[58svh] overflow-x-hidden overflow-y-auto px-3 pb-4 pt-2 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pb-6 sm:pt-3 sm:text-base sm:leading-7 lg:h-auto lg:min-h-0 lg:flex-1 lg:pb-8 lg:pt-4">
-          <div className="mx-auto flex w-full max-w-[72ch] flex-col">
+        <div className="flex h-[58svh] min-h-0 flex-col px-3 pt-3 text-sm leading-6 sm:h-[60vh] sm:px-6 sm:pt-4 sm:text-base sm:leading-7 lg:h-auto lg:flex-1 lg:pt-6">
+          <div className="mx-auto w-full max-w-[72ch] overflow-x-hidden overflow-y-auto">
             {rendered.map((block, index) => {
               if (block.type === 'prompt') {
                 return (
-                  <div key={index} className="mb-1 min-w-0">
+                  <div key={index} className="mb-4 min-w-0">
                     <PromptLine text={block.text} />
                   </div>
                 );
               }
 
-              if (block.type === 'output') {
-                const outputClassByStep =
-                  block.step === 1
-                    ? 'mb-5 space-y-1 rounded-lg border border-term-green/35 bg-term-green/10 px-3 py-2'
-                    : block.step === 3
-                      ? 'mb-5 space-y-1 rounded-lg border border-term-cyan/30 bg-term-cyan/5 px-3 py-2'
-                      : 'mb-6 space-y-2';
-                const lineClassByStep =
-                  block.step === 1
-                    ? 'pl-2 text-lg font-semibold text-term-green sm:text-2xl'
-                    : block.step === 3
-                      ? 'pl-2 text-sm font-medium tracking-[0.02em] text-term-cyan sm:text-lg'
-                      : 'pl-2 text-slate-300';
-
+              if (block.step === 1) {
                 return (
-                  <div key={index} className={outputClassByStep}>
-                    {block.lines.map((line, lineIndex) => (
-                      <p key={lineIndex} className={lineClassByStep}>
-                        <span className="mr-2 text-term-mute">›</span>
-                        {line}
-                      </p>
-                    ))}
+                  <div key={index} className="mb-5 rounded-lg border border-term-green/35 bg-term-green/10 px-3 py-2">
+                    <h1 className="pl-2 text-2xl font-semibold text-term-green sm:text-4xl">{block.lines[0]}</h1>
+                  </div>
+                );
+              }
+
+              if (block.step === 2) {
+                return (
+                  <div key={index} className="mb-5 rounded-lg border border-term-cyan/30 bg-term-cyan/5 px-3 py-2">
+                    <p className="pl-2 text-base font-semibold tracking-[0.02em] text-term-cyan sm:text-xl">{block.lines[0]}</p>
                   </div>
                 );
               }
 
               return (
-                <div key={index} className="mb-2 mt-2">
-                  <p className="mb-4 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
-                  <div className="flex flex-wrap gap-3">
-                    <CtaButton label={block.lines[0]} href="#projetos" primary />
-                    <CtaButton label={block.lines[1]} href="#artigos" />
-                  </div>
+                <div key={index} className="mb-4">
+                  <p className="pl-2 text-slate-300">
+                    <span className="mr-2 text-term-mute">›</span>
+                    {block.lines[0]}
+                  </p>
                 </div>
               );
             })}
@@ -283,13 +261,15 @@ export function Hero() {
               </div>
             )}
 
-            {done && (
-              <div className="mt-3 min-w-0">
-                <PromptLine text="" cursor />
-              </div>
-            )}
-
             <div ref={bottomRef} />
+          </div>
+
+          <div className="mx-auto mt-auto w-full max-w-[72ch] pb-4 pt-4 sm:pb-6">
+            <p className="mb-3 text-xs uppercase tracking-[0.16em] text-term-mute">› 2 items found</p>
+            <div className="flex flex-wrap gap-3">
+              <CtaButton label="Ver projetos" href="#projetos" primary />
+              <CtaButton label="Ler artigos" href="#artigos" />
+            </div>
           </div>
         </div>
       </section>
