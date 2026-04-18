@@ -17,7 +17,13 @@ const config: Config = {
         }
       },
       fontFamily: {
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+        mono: [
+          'var(--font-jetbrains-mono)',
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'monospace'
+        ]
       }
     }
   },
