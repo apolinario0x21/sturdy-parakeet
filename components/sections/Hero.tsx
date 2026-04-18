@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 const PROMPT_COMMAND = 'whoami';
-const TYPING_SPEED = 45;
+const BASE_TYPING_SPEED = 34;
 const CONTENT_REVEAL_DELAY = 450;
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
@@ -50,9 +50,17 @@ export function Hero() {
     }
 
     if (typedCommand.length < PROMPT_COMMAND.length) {
+      const nextIndex = typedCommand.length;
+      const isLastChar = nextIndex === PROMPT_COMMAND.length - 1;
+      const punctuationPause = ['.', ',', ';', ':'].includes(PROMPT_COMMAND[nextIndex - 1] ?? '')
+        ? 38
+        : 0;
+      const jitter = Math.floor(Math.random() * 24);
+      const delay = BASE_TYPING_SPEED + jitter + punctuationPause + (isLastChar ? 120 : 0);
+
       timeoutRef.current = setTimeout(() => {
-        setTypedCommand(PROMPT_COMMAND.slice(0, typedCommand.length + 1));
-      }, TYPING_SPEED);
+        setTypedCommand(PROMPT_COMMAND.slice(0, nextIndex + 1));
+      }, delay);
 
       return () => {
         if (timeoutRef.current) {
@@ -102,11 +110,11 @@ export function Hero() {
 
               {showContent && (
                 <>
-                  <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
-                  <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
+                  <h1 className="hero-reveal hero-reveal--title mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
+                  <p className="hero-reveal hero-reveal--role mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
                     DevOps &amp; Networking Engineer
                   </p>
-                  <p className="mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
+                  <p className="hero-reveal hero-reveal--subtitle mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
                 </>
               )}
             </div>

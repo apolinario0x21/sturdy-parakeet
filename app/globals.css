@@ -57,6 +57,24 @@ body::after {
   }
 }
 
+@keyframes hero-content-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.995);
+    filter: blur(3px);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
 @layer components {
   .terminal-cursor {
     animation: cursor-blink 2.5s step-end infinite;
@@ -86,11 +104,36 @@ body::after {
   .section-header {
     @apply flex flex-col items-start justify-between gap-1.5 rounded-xl border border-term-border/60 bg-slate-900/40 px-2.5 py-2.5 sm:flex-row sm:items-baseline sm:gap-2 sm:px-5 sm:py-4;
   }
+
+  .hero-reveal {
+    opacity: 0;
+    animation: hero-content-reveal 580ms cubic-bezier(0.2, 0.86, 0.2, 1) forwards;
+    will-change: transform, opacity, filter;
+  }
+
+  .hero-reveal--title {
+    animation-delay: 35ms;
+  }
+
+  .hero-reveal--role {
+    animation-delay: 160ms;
+  }
+
+  .hero-reveal--subtitle {
+    animation-delay: 285ms;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .terminal-typing {
     width: auto;
     animation: none;
+  }
+
+  .hero-reveal {
+    opacity: 1;
+    animation: none;
+    filter: none;
+    transform: none;
   }
 }
