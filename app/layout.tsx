@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-const jetBrains = JetBrains_Mono({ subsets: ['latin'] });
+const jetBrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' });
 
 export const metadata: Metadata = {
   title: 'Marcelo Apolinário | DevOps & Networking Engineer',
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
-      <body className={jetBrains.className}>{children}</body>
+    <html lang="pt-BR" className={jetBrains.variable}>
+      <body>{children}</body>
     </html>
   );
 }

@@ -13,6 +13,10 @@ export const stackGroups: StackGroup[] = [
     items: ['Terraform', 'Terraform Cloud', 'Packer', 'GitHub Actions']
   },
   {
+    category: 'Networking',
+    items: ['MikroTik', 'Huawei', 'BGP', 'OSPF', 'VLAN', 'Firewall']
+  },
+  {
     category: 'Containers & Sistemas',
     items: ['Docker', 'Docker Compose', 'Linux (Ubuntu/Kali/Parrot)', 'Windows']
   },
