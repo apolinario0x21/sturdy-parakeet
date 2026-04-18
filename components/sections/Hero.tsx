@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const PROMPT_COMMAND = 'whoami';
 const TYPING_SPEED = 45;
-const CONTENT_REVEAL_DELAY = 450;
+const CONTENT_REVEAL_DELAY = 320;
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
   return (
@@ -101,13 +101,17 @@ export function Hero() {
               </div>
 
               {showContent && (
-                <>
-                  <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
-                  <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
+                <div className="hero-intro-sequence">
+                  <h1 className="hero-intro-item hero-intro-name mt-6 text-3xl font-bold text-term-green sm:text-5xl">
+                    Marcelo Apolinário
+                  </h1>
+                  <p className="hero-intro-item hero-intro-role mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
                     DevOps &amp; Networking Engineer
                   </p>
-                  <p className="mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
-                </>
+                  <p className="hero-intro-item hero-intro-tagline mt-5 text-base text-slate-300 sm:text-lg">
+                    Provisiono ambientes resilientes e escaláveis.
+                  </p>
+                </div>
               )}
             </div>
           </div>
