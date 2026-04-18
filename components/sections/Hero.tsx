@@ -3,8 +3,19 @@
 import { useEffect, useRef, useState } from 'react';
 
 const PROMPT_COMMAND = 'whoami';
-const TYPING_SPEED = 45;
+const TYPING_SPEED = 52;
 const CONTENT_REVEAL_DELAY = 450;
+const NATURAL_TYPING_VARIATION = 28;
+const TYPING_PAUSE_BY_CHARACTER: Record<string, number> = {
+  '.': 120,
+  ',': 90,
+  ';': 90,
+  ':': 100,
+  '?': 130,
+  '!': 130,
+  '-': 70,
+  '_': 70
+};
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
   return (
@@ -52,7 +63,12 @@ export function Hero() {
     if (typedCommand.length < PROMPT_COMMAND.length) {
       timeoutRef.current = setTimeout(() => {
         setTypedCommand(PROMPT_COMMAND.slice(0, typedCommand.length + 1));
-      }, TYPING_SPEED);
+      }, (() => {
+        const nextCharacter = PROMPT_COMMAND[typedCommand.length] ?? '';
+        const randomVariation = Math.round((Math.random() - 0.5) * NATURAL_TYPING_VARIATION * 2);
+        const naturalPause = TYPING_PAUSE_BY_CHARACTER[nextCharacter] ?? 0;
+        return Math.max(20, TYPING_SPEED + randomVariation + naturalPause);
+      })());
 
       return () => {
         if (timeoutRef.current) {
@@ -101,13 +117,13 @@ export function Hero() {
               </div>
 
               {showContent && (
-                <>
+                <div className="terminal-reveal">
                   <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
                   <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
                     DevOps &amp; Networking Engineer
                   </p>
                   <p className="mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
-                </>
+                </div>
               )}
             </div>
           </div>
