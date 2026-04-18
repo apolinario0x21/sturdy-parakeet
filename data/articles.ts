@@ -1,5 +1,5 @@
 export type ArticleItem = {
-  slug: string;
+  slug?: string;
   title: string;
   category: string;
   publishedAt: string;
@@ -19,7 +19,6 @@ export const articles: ArticleItem[] = [
     available: true
   },
   {
-    slug: '#',
     title: 'Observabilidade para workloads em Kubernetes',
     category: 'SRE / Observabilidade',
     publishedAt: 'Em revisão',
@@ -28,7 +27,6 @@ export const articles: ArticleItem[] = [
     available: false
   },
   {
-    slug: '#',
     title: 'Padrões de rede para landing zones multi-cloud',
     category: 'Cloud / Networking',
     publishedAt: 'Em revisão',

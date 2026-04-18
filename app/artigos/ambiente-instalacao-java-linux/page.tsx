@@ -1,5 +1,10 @@
-import type { ReactNode } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+
+import { Callout } from '@/components/article/Callout';
+import { CodeBlock } from '@/components/article/CodeBlock';
+import type { ArticleStep } from '@/components/article/StepList';
+import { StepList } from '@/components/article/StepList';
 
 type TocItem = {
   id: string;
@@ -7,27 +12,19 @@ type TocItem = {
 };
 
 type StackItem = {
-  icon: string;
+  label: string;
   title: string;
   subtitle: string;
 };
 
-type Step = {
-  number: string;
-  title: string;
-  description?: string;
-  command?: string;
-  note?: string;
-};
-
 const stackItems: StackItem[] = [
-  { icon: '☕', title: 'Java (JDK)', subtitle: 'OpenJDK 21 LTS' },
-  { icon: '📦', title: 'Maven', subtitle: 'via apt' },
-  { icon: '🧠', title: 'IntelliJ IDEA', subtitle: 'Community / Ultimate' },
-  { icon: '🐘', title: 'PostgreSQL', subtitle: '17 (PGDG)' },
-  { icon: '🖥️', title: 'pgAdmin 4', subtitle: 'desktop + web' },
-  { icon: '🔶', title: 'Postman', subtitle: 'via Snap' },
-  { icon: '🐙', title: 'Git', subtitle: 'via apt' }
+  { label: 'JDK', title: 'Java (JDK)', subtitle: 'OpenJDK 21 LTS' },
+  { label: 'MAVEN', title: 'Maven', subtitle: 'via apt' },
+  { label: 'IDE', title: 'IntelliJ IDEA', subtitle: 'Community / Ultimate' },
+  { label: 'DB', title: 'PostgreSQL', subtitle: '17 (PGDG)' },
+  { label: 'GUI', title: 'pgAdmin 4', subtitle: 'desktop + web' },
+  { label: 'API', title: 'Postman', subtitle: 'via Snap' },
+  { label: 'VCS', title: 'Git', subtitle: 'via apt' }
 ];
 
 const toc: TocItem[] = [
@@ -41,7 +38,7 @@ const toc: TocItem[] = [
   { id: 'resumo', title: 'Resumo dos Comandos' }
 ];
 
-const javaSteps: Step[] = [
+const javaSteps: ArticleStep[] = [
   {
     number: '01',
     title: 'Verificar se Java já está instalado',
@@ -80,7 +77,7 @@ const javaSteps: Step[] = [
   }
 ];
 
-const postgresSteps: Step[] = [
+const postgresSteps: ArticleStep[] = [
   {
     number: '01',
     title: 'Adicionar chave e repositório oficial PGDG',
@@ -101,69 +98,43 @@ const postgresSteps: Step[] = [
   }
 ];
 
-function CodeBlock({ title = 'bash', code }: { title?: string; code: string }) {
-  return (
-    <div className="overflow-hidden rounded-xl border border-term-border/70 bg-slate-950/70">
-      <div className="flex items-center justify-between border-b border-term-border/70 bg-term-panel/60 px-3 py-2">
-        <div className="flex items-center gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-          <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
-          <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
-        </div>
-        <span className="text-[11px] uppercase tracking-[0.16em] text-term-mute">{title}</span>
-      </div>
-      <pre className="overflow-x-auto whitespace-pre px-4 py-4 text-xs leading-relaxed text-term-text sm:text-sm">{code}</pre>
-    </div>
-  );
-}
+export const metadata: Metadata = {
+  title: 'Ambiente de Instalação Java no Linux | Marcelo Apolinário',
+  description:
+    'Guia técnico para Ubuntu 24.04 com Java 21, Maven, IntelliJ, PostgreSQL 17, pgAdmin, Postman e Git.'
+};
 
-function Callout({ tone, children }: { tone: 'info' | 'warn' | 'ok'; children: ReactNode }) {
-  const styles = {
-    info: 'border-cyan-500/30 bg-cyan-500/10 text-cyan-100',
-    warn: 'border-amber-500/30 bg-amber-500/10 text-amber-100',
-    ok: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100'
-  };
-
-  return <div className={`rounded-xl border px-4 py-3 text-sm leading-relaxed ${styles[tone]}`}>{children}</div>;
-}
-
-function StepList({ steps }: { steps: Step[] }) {
-  return (
-    <div className="space-y-5">
-      {steps.map((step) => (
-        <div key={step.number} className="rounded-xl border border-term-border/70 bg-term-panel/30 p-4 sm:p-5">
-          <div className="mb-2 flex items-start gap-3">
-            <span className="mt-0.5 inline-flex h-7 w-7 flex-none items-center justify-center rounded-full border border-amber-500/40 bg-amber-500/10 text-xs font-bold text-amber-300">
-              {step.number}
-            </span>
-            <div>
-              <h3 className="text-sm font-semibold text-term-text sm:text-base">{step.title}</h3>
-              {step.description ? <p className="mt-1 text-sm text-term-mute">{step.description}</p> : null}
-            </div>
-          </div>
-
-          {step.command ? <CodeBlock code={step.command} /> : null}
-          {step.note ? <p className="mt-2 text-xs text-term-mute sm:text-sm">{step.note}</p> : null}
-        </div>
-      ))}
-    </div>
-  );
-}
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'Ambiente de Instalação Java no Linux',
+  description:
+    'Guia técnico para Ubuntu 24.04 com Java 21, Maven, IntelliJ, PostgreSQL 17, pgAdmin, Postman e Git.',
+  author: {
+    '@type': 'Person',
+    name: 'Marcelo Apolinário'
+  },
+  datePublished: '2026-04-10',
+  dateModified: '2026-04-10',
+  inLanguage: 'pt-BR'
+};
 
 export default function AmbienteInstalacaoJavaLinuxPage() {
   return (
     <main className="mx-auto max-w-5xl px-4 py-8 text-term-text sm:px-6 lg:px-8">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
+
       <article className="overflow-hidden rounded-2xl border border-term-border/80 bg-slate-950/70 shadow-[0_0_40px_rgba(66,255,159,0.07)]">
         <header className="border-b border-term-border/80 bg-term-panel/65 px-4 py-10 text-center sm:px-8">
-          <p className="mx-auto mb-4 inline-block rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1 text-[11px] uppercase tracking-[0.18em] text-amber-300">
-            ☕ DevOps · Linux · Java · PostgreSQL
+          <p className="mx-auto mb-4 inline-block rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1 text-[11px] uppercase tracking-[0.18em] text-term-amber">
+            DevOps · Linux · Java · PostgreSQL
           </p>
           <h1 className="text-2xl font-bold tracking-tight sm:text-4xl">
-            Ambiente de Desenvolvimento <span className="text-amber-300">Java</span> no Linux
+            Ambiente de Desenvolvimento <span className="text-term-amber">Java</span> no Linux
           </h1>
           <p className="mx-auto mt-3 max-w-3xl text-sm text-term-mute sm:text-base">
-            Guia detalhado de instalação e configuração no Ubuntu 24.04, cobrindo da base Java até ferramentas
-            de produtividade para desenvolvimento backend.
+            Guia detalhado de instalação e configuração no Ubuntu 24.04, cobrindo da base Java até ferramentas de
+            produtividade para desenvolvimento backend.
           </p>
           <p className="mt-4 text-xs text-term-mute sm:text-sm">
             Ubuntu 24.04 LTS · Java 21 · Maven · IntelliJ · PostgreSQL 17 · pgAdmin 4 · Postman · Git
@@ -180,7 +151,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
             <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {stackItems.map((item) => (
                 <div key={item.title} className="rounded-xl border border-term-border/70 bg-term-panel/40 px-4 py-3">
-                  <p className="text-xl">{item.icon}</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-term-cyan">{item.label}</p>
                   <p className="mt-1 font-semibold">{item.title}</p>
                   <p className="text-xs text-term-mute">{item.subtitle}</p>
                 </div>
@@ -202,7 +173,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
           </section>
 
           <section id="java" className="space-y-4">
-            <h2 className="text-xl font-semibold text-amber-300">Java 21 — OpenJDK</h2>
+            <h2 className="text-xl font-semibold text-term-amber">Java 21 — OpenJDK</h2>
             <p className="text-sm text-term-mute sm:text-base">
               O Java 21 é a versão LTS recomendada para estabilidade em projetos de médio e longo prazo. Para
               desenvolvimento, utilize sempre o pacote JDK completo (com compilador e ferramentas de build).
@@ -223,7 +194,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
           </section>
 
           <section id="maven" className="space-y-4">
-            <h2 className="text-xl font-semibold text-amber-300">Apache Maven</h2>
+            <h2 className="text-xl font-semibold text-term-amber">Apache Maven</h2>
             <p className="text-sm text-term-mute sm:text-base">
               O Maven gerencia dependências e ciclo de build do projeto Java. No Ubuntu, a forma mais simples é via
               apt.
@@ -237,7 +208,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
           </section>
 
           <section id="intellij" className="space-y-4">
-            <h2 className="text-xl font-semibold text-amber-300">IntelliJ IDEA</h2>
+            <h2 className="text-xl font-semibold text-term-amber">IntelliJ IDEA</h2>
             <p className="text-sm text-term-mute sm:text-base">
               IDE recomendada para Java. Community cobre a maioria dos cenários acadêmicos e pessoais. Ultimate é
               indicada para stacks corporativas com Spring e integrações avançadas.
@@ -250,7 +221,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
           </section>
 
           <section id="postgresql" className="space-y-4">
-            <h2 className="text-xl font-semibold text-amber-300">PostgreSQL 17</h2>
+            <h2 className="text-xl font-semibold text-term-amber">PostgreSQL 17</h2>
             <p className="text-sm text-term-mute sm:text-base">
               Instalação via PGDG garante versão mais atualizada e manutenção direta da equipe PostgreSQL. É uma boa
               prática para ambientes de desenvolvimento mais próximos de produção.
@@ -263,7 +234,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
           </section>
 
           <section id="pgadmin" className="space-y-4">
-            <h2 className="text-xl font-semibold text-amber-300">pgAdmin 4</h2>
+            <h2 className="text-xl font-semibold text-term-amber">pgAdmin 4</h2>
             <p className="text-sm text-term-mute sm:text-base">
               Interface gráfica oficial para administrar PostgreSQL. Pode ser usada em modo desktop e web.
             </p>
@@ -279,7 +250,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
           </section>
 
           <section id="postman" className="space-y-4">
-            <h2 className="text-xl font-semibold text-amber-300">Postman</h2>
+            <h2 className="text-xl font-semibold text-term-amber">Postman</h2>
             <p className="text-sm text-term-mute sm:text-base">
               Cliente HTTP útil para validar APIs REST durante o desenvolvimento e testes de integração.
             </p>
@@ -287,7 +258,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
           </section>
 
           <section id="git" className="space-y-4">
-            <h2 className="text-xl font-semibold text-amber-300">Git</h2>
+            <h2 className="text-xl font-semibold text-term-amber">Git</h2>
             <p className="text-sm text-term-mute sm:text-base">Controle de versão obrigatório para rastrear mudanças e colaborar em equipe.</p>
             <CodeBlock
               code={
@@ -298,7 +269,7 @@ export default function AmbienteInstalacaoJavaLinuxPage() {
           </section>
 
           <section id="resumo" className="space-y-4">
-            <h2 className="text-xl font-semibold text-amber-300">Resumo dos comandos</h2>
+            <h2 className="text-xl font-semibold text-term-amber">Resumo dos comandos</h2>
             <CodeBlock
               code={
                 'Java: sudo apt install openjdk-21-jdk\nMaven: sudo apt install maven\nIntelliJ: sudo snap install intellij-idea-community --classic\nPostgreSQL: sudo apt install postgresql-17\npgAdmin: sudo apt install pgadmin4\nPostman: sudo snap install postman\nGit: sudo apt install git'

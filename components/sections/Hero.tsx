@@ -1,22 +1,11 @@
-'use client';
-
-import { useEffect, useRef, useState } from 'react';
-
-const PROMPT_COMMAND = 'whoami';
-const BASE_TYPING_SPEED = 34;
-const CONTENT_REVEAL_DELAY = 450;
-
-function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
+function PromptLine({ text }: { text: string }) {
   return (
     <div className="grid min-w-0 grid-cols-[auto_auto_auto_auto_minmax(0,1fr)] items-baseline gap-x-1">
       <span className="font-semibold text-term-green">marcelo@apolinario</span>
       <span className="text-term-mute">:</span>
       <span className="text-term-cyan">~</span>
       <span className="text-slate-200">$</span>
-      <span className="min-w-0 break-words text-slate-100">
-        {text}
-        {cursor && <span className="terminal-cursor ml-1 inline-block h-[1em] w-2 rounded-[1px] bg-term-cyan align-baseline" aria-hidden />}
-      </span>
+      <span className="min-w-0 break-words text-slate-100">{text}</span>
     </div>
   );
 }
@@ -27,7 +16,7 @@ function CtaButton({ label, href, primary }: { label: string; href: string; prim
       href={href}
       className={`inline-flex items-center rounded-md border px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] transition sm:text-sm ${
         primary
-          ? 'border-green-600 bg-green-600/95 text-white hover:-translate-y-0.5 hover:border-blue-600 hover:bg-blue-600'
+          ? 'border-term-green bg-term-green/95 text-slate-950 hover:-translate-y-0.5 hover:border-term-cyan hover:bg-term-cyan'
           : 'border-term-border bg-transparent text-slate-300 hover:-translate-y-0.5 hover:border-term-cyan hover:text-term-cyan'
       }`}
     >
@@ -37,57 +26,9 @@ function CtaButton({ label, href, primary }: { label: string; href: string; prim
   );
 }
 
+const heroHighlights = ['Kubernetes', 'Terraform', 'AWS/GCP', 'Go'];
+
 export function Hero() {
-  const [typedCommand, setTypedCommand] = useState('');
-  const [done, setDone] = useState(false);
-  const [showContent, setShowContent] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const revealTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
-
-  useEffect(() => {
-    if (done) {
-      return;
-    }
-
-    if (typedCommand.length < PROMPT_COMMAND.length) {
-      const nextIndex = typedCommand.length;
-      const isLastChar = nextIndex === PROMPT_COMMAND.length - 1;
-      const punctuationPause = ['.', ',', ';', ':'].includes(PROMPT_COMMAND[nextIndex - 1] ?? '')
-        ? 38
-        : 0;
-      const jitter = Math.floor(Math.random() * 24);
-      const delay = BASE_TYPING_SPEED + jitter + punctuationPause + (isLastChar ? 120 : 0);
-
-      timeoutRef.current = setTimeout(() => {
-        setTypedCommand(PROMPT_COMMAND.slice(0, nextIndex + 1));
-      }, delay);
-
-      return () => {
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
-      };
-    }
-
-    setDone(true);
-  }, [typedCommand, done]);
-
-  useEffect(() => {
-    if (!done) {
-      return;
-    }
-
-    revealTimeoutRef.current = setTimeout(() => {
-      setShowContent(true);
-    }, CONTENT_REVEAL_DELAY);
-
-    return () => {
-      if (revealTimeoutRef.current) {
-        clearTimeout(revealTimeoutRef.current);
-      }
-    };
-  }, [done]);
-
   return (
     <header className="grid min-h-[calc(100svh-1.5rem)] w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)]">
       <section className="hero-panel terminal-card flex h-full w-full flex-col overflow-hidden border-term-border">
@@ -105,22 +46,26 @@ export function Hero() {
           <div className="flex flex-1 items-center">
             <div className="mx-auto w-full max-w-[72ch] text-center">
               <div className="flex justify-center">
-                <PromptLine text={typedCommand} cursor={!done} />
+                <PromptLine text="whoami" />
               </div>
 
-              {showContent && (
-                <>
-                  <h1 className="hero-reveal hero-reveal--title mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
-                  <p className="hero-reveal hero-reveal--role mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
-                    DevOps &amp; Networking Engineer
-                  </p>
-                  <p className="hero-reveal hero-reveal--subtitle mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
-                </>
-              )}
+              <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
+              <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
+                DevOps &amp; Networking Engineer
+              </p>
+              <p className="mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
+
+              <ul className="mt-5 flex flex-wrap items-center justify-center gap-2" aria-label="Stack em destaque">
+                {heroHighlights.map((item) => (
+                  <li key={item} className="rounded border border-term-border bg-term-panel/60 px-2.5 py-1 text-xs text-term-amber sm:text-sm">
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
 
-          <div className="mt-8 flex w-full flex-wrap justify-center gap-3 border-t border-term-border/60 pt-5 sm:justify-end">
+          <div className="mt-8 flex w-full flex-wrap justify-center gap-3 border-t border-term-border/60 pt-5">
             <CtaButton label="Ver projetos" href="#projetos" primary />
             <CtaButton label="Ler artigos" href="#artigos" />
           </div>

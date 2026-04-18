@@ -7,22 +7,15 @@
 }
 
 html {
+  position: relative;
   scroll-behavior: smooth;
-  min-height: 100%;
-  overflow-x: hidden;
-}
-
-body {
   min-height: 100svh;
   overflow-x: hidden;
-  @apply m-0 bg-term-bg text-term-text font-mono;
-  background-image: radial-gradient(circle at 15% 0%, rgba(87, 216, 255, 0.12), transparent 28%),
-    radial-gradient(circle at 85% 100%, rgba(66, 255, 159, 0.12), transparent 30%);
 }
 
-body::after {
+html::after {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
   background: repeating-linear-gradient(
@@ -36,6 +29,14 @@ body::after {
   opacity: 0.15;
 }
 
+body {
+  min-height: 100svh;
+  overflow-x: hidden;
+  @apply m-0 bg-term-bg text-term-text font-mono;
+  background-image: radial-gradient(circle at 15% 0%, rgba(87, 216, 255, 0.12), transparent 28%),
+    radial-gradient(circle at 85% 100%, rgba(66, 255, 159, 0.12), transparent 30%);
+}
+
 @keyframes cursor-blink {
   0%,
   45% {
@@ -46,7 +47,6 @@ body::after {
     opacity: 0;
   }
 }
-
 
 @keyframes command-typing {
   from {
