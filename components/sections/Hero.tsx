@@ -91,18 +91,20 @@ export function Hero() {
                 <PromptLine text={typedCommand} cursor={!done} />
               </div>
 
-              <h1 className="hero-reveal hero-reveal--title mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
-              <p className="hero-reveal hero-reveal--role mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
-                DevOps &amp; Networking Engineer
-              </p>
-              <p className="hero-reveal hero-reveal--subtitle mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
+              <div className={`hero-content${done ? ' hero-content--visible' : ''}`}>
+                <h1 className="hero-reveal hero-reveal--title mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
+                <p className="hero-reveal hero-reveal--role mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
+                  DevOps &amp; Networking Engineer
+                </p>
+                <p className="hero-reveal hero-reveal--subtitle mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
 
-              <div className="hero-reveal hero-reveal--subtitle mt-5 flex flex-wrap justify-center gap-2 text-xs sm:text-sm">
-                {heroStack.map((item) => (
-                  <span key={item} className="rounded-md border border-term-border bg-slate-950/50 px-2.5 py-1 text-term-amber">
-                    {item}
-                  </span>
-                ))}
+                <div className="hero-reveal hero-reveal--subtitle mt-5 flex flex-wrap justify-center gap-2 text-xs sm:text-sm">
+                  {heroStack.map((item) => (
+                    <span key={item} className="rounded-md border border-term-border bg-slate-950/50 px-2.5 py-1 text-term-amber">
+                      {item}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
