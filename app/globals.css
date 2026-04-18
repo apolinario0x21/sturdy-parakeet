@@ -7,8 +7,9 @@
 }
 
 html {
+  position: relative;
   scroll-behavior: smooth;
-  min-height: 100%;
+  min-height: 100svh;
   overflow-x: hidden;
 }
 
@@ -20,10 +21,11 @@ body {
     radial-gradient(circle at 85% 100%, rgba(66, 255, 159, 0.12), transparent 30%);
 }
 
-body::after {
+html::after {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
+  min-height: 100svh;
   pointer-events: none;
   background: repeating-linear-gradient(
     to bottom,
@@ -46,7 +48,6 @@ body::after {
     opacity: 0;
   }
 }
-
 
 @keyframes command-typing {
   from {
