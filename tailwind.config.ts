@@ -15,9 +15,6 @@ const config: Config = {
           text: '#d9e5f1',
           mute: '#8ba2bd'
         }
-      },
-      fontFamily: {
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
       }
     }
   },

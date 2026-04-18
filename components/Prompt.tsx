@@ -11,11 +11,11 @@ export function Prompt({ path = '~', command }: PromptProps) {
   } as CSSProperties;
 
   return (
-    <p className="flex items-baseline whitespace-nowrap text-xs leading-relaxed sm:text-base lg:text-lg">
+    <p className="flex items-baseline overflow-x-hidden whitespace-nowrap text-xs leading-relaxed sm:text-base lg:text-lg">
       <span className="font-semibold text-term-green">marcelo</span>
       <span className="font-semibold text-term-cyan">@apolinario</span>
       <span>:</span>
-      <span className="font-semibold text-amber-300">{path}</span>
+      <span className="font-semibold text-term-amber">{path}</span>
       <span>$</span>
       <span className="terminal-typing ml-1 text-term-mute" style={typingStyle}>
         {command}

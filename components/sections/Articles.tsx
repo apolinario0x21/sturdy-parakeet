@@ -24,7 +24,7 @@ export function Articles() {
             <p className="text-sm text-term-mute">{article.excerpt}</p>
 
             <div>
-              {article.available ? (
+              {article.available && article.slug ? (
                 <Link className="text-sm font-semibold text-term-cyan underline-offset-4 hover:underline" href={article.slug}>
                   Abrir artigo
                 </Link>
