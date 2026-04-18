@@ -2,35 +2,7 @@ import Link from 'next/link';
 
 import { Prompt } from '@/components/Prompt';
 import { TerminalWindow } from '@/components/TerminalWindow';
-
-type ContactLink = {
-  label: string;
-  href: string;
-  display: string;
-};
-
-const links: ContactLink[] = [
-  {
-    label: 'GitHub',
-    href: 'https://github.com/apolinario',
-    display: 'github.com/apolinario'
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/marcelo-apolinario/',
-    display: 'linkedin.com/in/marcelo-apolinario'
-  },
-  {
-    label: 'Email',
-    href: 'mailto:marcelo.apolinario.dev@gmail.com',
-    display: 'marcelo.apolinario.dev@gmail.com'
-  },
-  {
-    label: 'Blog / Artigos',
-    href: '#artigos',
-    display: 'Ver seção de artigos'
-  }
-];
+import { contactLinks } from '@/data/content';
 
 export function Links() {
   return (
@@ -38,7 +10,7 @@ export function Links() {
       <Prompt command="cat contato.conf" />
 
       <div className="grid gap-3 sm:grid-cols-2">
-        {links.map((item) => (
+        {contactLinks.map((item) => (
           <article key={item.label} className="terminal-output space-y-1.5">
             <p className="text-sm text-term-mute">{item.label}</p>
             <Link
