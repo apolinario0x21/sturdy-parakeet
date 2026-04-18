@@ -112,7 +112,7 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="mt-8 flex w-full flex-wrap justify-end gap-3 border-t border-term-border/60 pt-5">
+          <div className="mt-8 flex w-full flex-wrap justify-center gap-3 border-t border-term-border/60 pt-5 sm:justify-end">
             <CtaButton label="Ver projetos" href="#projetos" primary />
             <CtaButton label="Ler artigos" href="#artigos" />
           </div>
