@@ -38,7 +38,7 @@ body::after {
 
 @keyframes cursor-blink {
   0%,
-  45% {
+  42% {
     opacity: 1;
   }
   50%,
@@ -47,6 +47,18 @@ body::after {
   }
 }
 
+@keyframes hero-content-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
 
 @keyframes command-typing {
   from {
@@ -59,7 +71,7 @@ body::after {
 
 @layer components {
   .terminal-cursor {
-    animation: cursor-blink 2.5s step-end infinite;
+    animation: cursor-blink 1.15s step-end infinite;
   }
 
   .terminal-typing {
@@ -78,6 +90,11 @@ body::after {
     @apply min-w-0 rounded-xl border border-term-border/70 bg-slate-950/60 p-2.5 leading-relaxed sm:p-5;
   }
 
+  .hero-reveal {
+    animation: hero-content-reveal 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: opacity, transform, filter;
+  }
+
   .hero-panel {
     background: linear-gradient(180deg, rgba(4, 21, 50, 0.88) 0%, rgba(3, 13, 33, 0.92) 100%);
     box-shadow: 0 10px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.03);
@@ -91,6 +108,10 @@ body::after {
 @media (prefers-reduced-motion: reduce) {
   .terminal-typing {
     width: auto;
+    animation: none;
+  }
+
+  .hero-reveal {
     animation: none;
   }
 }

@@ -3,8 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 
 const PROMPT_COMMAND = 'whoami';
-const TYPING_SPEED = 45;
-const CONTENT_REVEAL_DELAY = 450;
+const CONTENT_REVEAL_DELAY = 220;
+
+const TYPING_DELAYS_MS = [120, 95, 110, 85, 100, 145];
+
+type AnimationPhase = 'typing' | 'waiting' | 'revealed';
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
   return (
@@ -39,46 +42,50 @@ function CtaButton({ label, href, primary }: { label: string; href: string; prim
 
 export function Hero() {
   const [typedCommand, setTypedCommand] = useState('');
-  const [done, setDone] = useState(false);
-  const [showContent, setShowContent] = useState(false);
+  const [phase, setPhase] = useState<AnimationPhase>('typing');
+
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const revealTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    if (done) {
+    if (phase !== 'typing') {
       return;
     }
 
-    if (typedCommand.length < PROMPT_COMMAND.length) {
-      timeoutRef.current = setTimeout(() => {
-        setTypedCommand(PROMPT_COMMAND.slice(0, typedCommand.length + 1));
-      }, TYPING_SPEED);
-
-      return () => {
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
-      };
-    }
-
-    setDone(true);
-  }, [typedCommand, done]);
-
-  useEffect(() => {
-    if (!done) {
+    if (typedCommand.length >= PROMPT_COMMAND.length) {
+      setPhase('waiting');
       return;
     }
 
-    revealTimeoutRef.current = setTimeout(() => {
-      setShowContent(true);
+    const nextDelay = TYPING_DELAYS_MS[typedCommand.length % TYPING_DELAYS_MS.length];
+
+    timeoutRef.current = setTimeout(() => {
+      setTypedCommand(PROMPT_COMMAND.slice(0, typedCommand.length + 1));
+    }, nextDelay);
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [typedCommand, phase]);
+
+  useEffect(() => {
+    if (phase !== 'waiting') {
+      return;
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      setPhase('revealed');
     }, CONTENT_REVEAL_DELAY);
 
     return () => {
-      if (revealTimeoutRef.current) {
-        clearTimeout(revealTimeoutRef.current);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     };
-  }, [done]);
+  }, [phase]);
+
+  const showContent = phase === 'revealed';
 
   return (
     <header className="grid min-h-[calc(100svh-1.5rem)] w-full grid-cols-1 lg:min-h-[calc(100svh-3rem)]">
@@ -97,17 +104,17 @@ export function Hero() {
           <div className="flex flex-1 items-center">
             <div className="mx-auto w-full max-w-[72ch] text-center">
               <div className="flex justify-center">
-                <PromptLine text={typedCommand} cursor={!done} />
+                <PromptLine text={typedCommand} cursor={phase !== 'revealed'} />
               </div>
 
               {showContent && (
-                <>
+                <div className="hero-reveal">
                   <h1 className="mt-6 text-3xl font-bold text-term-green sm:text-5xl">Marcelo Apolinário</h1>
                   <p className="mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl">
                     DevOps &amp; Networking Engineer
                   </p>
                   <p className="mt-5 text-base text-slate-300 sm:text-lg">Provisiono ambientes resilientes e escaláveis.</p>
-                </>
+                </div>
               )}
             </div>
           </div>
