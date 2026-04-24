@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 const PROMPT_COMMAND = 'whoami';
 const BASE_TYPING_SPEED = 34;
 
-const heroStack = ['Kubernetes', 'Terraform', 'AWS/GCP', 'Go'];
+const heroStack = ['AWS', 'Kubernetes', 'Terraform', 'Linux', 'CI/CD', 'Observability'];
 
 function PromptLine({ text, cursor = false }: { text: string; cursor?: boolean }) {
   return (
@@ -97,10 +97,10 @@ export function Hero() {
               <p
                 className={`hero-reveal hero-reveal--role ${done ? 'hero-reveal--active' : ''} mt-4 inline-flex rounded-lg border border-term-cyan/35 bg-term-cyan/10 px-3 py-2 text-base font-medium text-term-cyan sm:text-xl`}
               >
-                DevOps &amp; Networking Engineer
+                DevOps Engineer | Platform &amp; Cloud Infrastructure
               </p>
               <p className={`hero-reveal hero-reveal--subtitle ${done ? 'hero-reveal--active' : ''} mt-5 text-base text-slate-300 sm:text-lg`}>
-                Provisiono ambientes resilientes e escaláveis.
+                Provisiono e automatizo infraestrutura cloud com foco em CI/CD, Kubernetes, observabilidade e ambientes resilientes.
               </p>
 
               <div className={`hero-reveal hero-reveal--subtitle ${done ? 'hero-reveal--active' : ''} mt-5 flex flex-wrap justify-center gap-2 text-xs sm:text-sm`}>
@@ -114,8 +114,8 @@ export function Hero() {
           </div>
 
           <div className="mt-8 flex w-full flex-wrap justify-center gap-3 border-t border-term-border/60 pt-5">
-            <CtaButton label="Ver projetos" href="#projetos" primary />
-            <CtaButton label="Ler artigos" href="#artigos" />
+            <CtaButton label="Ver Projetos" href="#projetos" primary />
+            <CtaButton label="Ler Artigos" href="#artigos" />
           </div>
         </div>
       </section>

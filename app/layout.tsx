@@ -9,8 +9,28 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Marcelo Apolinário | DevOps & Networking Engineer',
-  description: 'Marcelo Apolinário - DevOps & Platform Engineer, Kubernetes, Terraform, AWS/GCP, Go.'
+  title: 'Marcelo Apolinário | DevOps Engineer | AWS, Kubernetes, Terraform',
+  description:
+    'DevOps Engineer com foco em AWS, Kubernetes, Terraform, CI/CD e observabilidade, atuando na automação de infraestrutura e construção de ambientes confiáveis e escaláveis',
+  keywords: [
+    'devops engineer',
+    'platform engineer',
+    'sre',
+    'aws',
+    'kubernetes',
+    'terraform',
+    'docker',
+    'linux',
+    'ci/cd',
+    'github actions',
+    'observability',
+    'prometheus',
+    'grafana',
+    'eks',
+    'gitops',
+    'cloud infrastructure',
+    'automation'
+  ]
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
